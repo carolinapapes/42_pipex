@@ -1,7 +1,8 @@
 # Compiler and compiler flags
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-SRC = main.c parser.c pipex.c commands.c
+SRC_DIR = ./src
+SRC = main.c parser.c pipex.c commands.c pipex_err.c child.c files_fd.c
 BUILD_DIR = ./build
 
 # LIBS
@@ -12,15 +13,14 @@ LIBFT_NAME = libft
 LIBFT_PATH 	= $(LIBS_PATH)/libft
 LIBFT_LINK	= -L${LIBFT_PATH} -lft
 
-OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
-DPS = $(OBJ:%.o=%.d) $(OBJ_SRC_BONUS:%.o=%.d)
+OBJ_SRC = $(SRC:%.c=$(BUILD_DIR)/%.o)
+DPS = $(OBJ_SRC:%.o=%.d)
 
-
-PREQ = Makefile 
+PREQ = Makefile
 NAME = pipex
 DEFLAGS := -MMD -MP
 
-#Colors
+# Colors
 DEF_COLOR = \033[0;39m
 GRAY = \033[0;90m
 RED = \033[0;91m
@@ -38,35 +38,30 @@ all: make_libs $(NAME)
 make_libs:
 	$(call make_lib,$(LIBFT_NAME),$(LIBFT_PATH))
 
-$(NAME): $(OBJ) $(LIBFT_PATH)/libft.a
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT_LINK)
+$(NAME): $(OBJ_SRC) $(LIBFT_PATH)/libft.a
+	@$(CC) $(CFLAGS) $(OBJ_SRC) -o $(NAME) $(LIBFT_LINK)
 	@echo "$(GREEN)📚completed		$(NAME)$(DEF_COLOR)"
 
-
-$(BUILD_DIR)/%.o: %.c $(PREQ) | $(BUILD_DIR) 
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(PREQ) | $(BUILD_DIR)
 	@$(CC) $(CFLAGS) $(DEFLAGS) -c $< -o $@
 	@echo "$(GRAY)⏳compiling		$<$(DEF_COLOR)"
 	
 $(BUILD_DIR):
 	@mkdir -p $@
 
-$(BONUS_FILE): 
-	@touch .bonus
-
 clean:
 	@rm -rf $(BUILD_DIR)
-	@Make -C $(LIBFT_PATH) clean
+	@make -C $(LIBFT_PATH) clean
 	@echo "$(RED)🧹clean		${NAME}$(DEF_COLOR)"
 
 fclean:
 	@rm -f $(NAME)
-	@- rm .bonus
 	@rm -rf $(BUILD_DIR)
-	@Make -C $(LIBFT_PATH) fclean
+	@make -C $(LIBFT_PATH) fclean
 	@echo "$(RED)🧹fclean		${NAME}$(DEF_COLOR)"
 
 re: fclean all
 
 -include $(DPS)
 
-.PHONY: re fclean clean all make_libs bonus
+.PHONY: re fclean clean all make_libs
