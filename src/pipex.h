@@ -37,6 +37,27 @@ typedef struct s_pipe
 	int	fd_outside[2];
 }		t_pipe;
 
+
+typedef struct s_cmd_new
+{
+	char	*str;
+	char	**arr;
+	char	**env;
+	char	*path;
+}	t_cmd_new;
+
+typedef struct s_process
+{
+	t_cmd_new		cmd_new;
+	int			pid;
+	int			input[2];
+	int			output[2];
+}	t_process;
+
+
+
+
+
 int		is_parse_valid(int argc, char **argv);
 int		pipex(int argc, char **argv, char **envp);
 int		command_call(char *command, char **envp);
@@ -45,5 +66,7 @@ void	perror_cmd_msg(char *msg);
 void	perror_cmd_is_dir(char *msg);
 int		process_child(int *fd_input, int *fd_output, char *command, char **envp);
 void	fd_close(int *fd);
+int		pipex_new(int argc, char **argv, char **envp);
+char	*command_path(char *command, char **envp);
 
 #endif

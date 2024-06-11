@@ -18,5 +18,5 @@ int	main(int argc, char **argv, char **envp)
 {
 	if (!is_parse_valid(argc, argv))
 		return (1);
-	return (pipex(argc, argv, envp));
+	return (pipex_new(argc, argv, envp));
 }

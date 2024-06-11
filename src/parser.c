@@ -15,7 +15,7 @@
 
 int	is_argc_err(int argc)
 {
-	return (argc != 5);
+	return (argc > 10);
 }
 
 int	is_str_null(char *str)
