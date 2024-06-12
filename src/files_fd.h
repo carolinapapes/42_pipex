@@ -6,13 +6,14 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 22:34:56 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/09 09:38:11 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/12 01:05:24 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILES_FD_H
 # define FILES_FD_H
-
+# include "../libs/libft/libft.h"
+# include "pipex.h"
 # define READ_END 0
 # define WRITE_END 1
 
@@ -21,6 +22,10 @@
 # define FT_FD_DUP 4
 # define FT_FD_CLOSE 8
 
-void	process_fds(int *fd_input, int *fd_output, int code);
+# define IS_FIRST_PROCESS 1
+# define IS_LAST_PROCESS 2
 
+void	process_fds(int *fd_input, int *fd_output, int code);
+void	input_set(t_list *list, t_process *current, char *file, int is_first);
+void	output_set(t_process *current, char *file, int is_last);
 #endif

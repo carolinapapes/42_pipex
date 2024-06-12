@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:37:37 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/09 09:51:50 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/12 01:01:23 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_pipe
 	int	fd_outside[2];
 }		t_pipe;
 
-
 typedef struct s_cmd_new
 {
 	char	*str;
@@ -48,25 +47,21 @@ typedef struct s_cmd_new
 
 typedef struct s_process
 {
-	t_cmd_new		cmd_new;
+	t_cmd_new	cmd_new;
 	int			pid;
 	int			input[2];
 	int			output[2];
 }	t_process;
 
-
-
-
-
 int		is_parse_valid(int argc, char **argv);
-int		pipex(int argc, char **argv, char **envp);
-int		command_call(char *command, char **envp);
+int		pipex(int argc, char **argv, char **env);
+int		command_call(char *command, char **env);
 void	perror_msg(char *msg);
 void	perror_cmd_msg(char *msg);
 void	perror_cmd_is_dir(char *msg);
-int		process_child(int *fd_input, int *fd_output, char *command, char **envp);
+int		process_child(int *fd_input, int *fd_output, char *command, char **env);
 void	fd_close(int *fd);
-int		pipex_new(int argc, char **argv, char **envp);
-char	*command_path(char *command, char **envp);
+int		pipex_new(int argc, char **argv, char **env);
+char	*command_path(char *command, char **env);
 
 #endif

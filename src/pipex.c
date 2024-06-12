@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:58:07 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/09 09:53:00 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/11 22:55:24 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	pipe_initialize(t_pipe *s_pipe, int argc, char **argv)
 	open_infiles(s_pipe->fd_inside, s_pipe);
 }
 
-int		pipex(int argc, char **argv, char **envp)
+int		pipex(int argc, char **argv, char **env)
 {
 	t_pipe	s_pipe;
 	int		is_fork;
@@ -72,10 +72,10 @@ int		pipex(int argc, char **argv, char **envp)
 	if (!is_forked(&s_pipe.pid_in))
 		return (1);
 	if (s_pipe.pid_in == 0)
-		return (process_child(s_pipe.fd_outside, s_pipe.fd_inside, argv[2], envp));
+		return (process_child(s_pipe.fd_outside, s_pipe.fd_inside, argv[2], env));
 	is_fork = is_forked(&s_pipe.pid_out);
 	if (is_fork && s_pipe.pid_out == 0)
-		return (process_child(s_pipe.fd_inside, s_pipe.fd_outside, argv[3], envp));
+		return (process_child(s_pipe.fd_inside, s_pipe.fd_outside, argv[3], env));
 	fd_close(s_pipe.fd_inside);
 	fd_close(s_pipe.fd_outside);
 	waitpid(s_pipe.pid_in, NULL, 0);

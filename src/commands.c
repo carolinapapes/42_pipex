@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 23:18:11 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/09 09:56:06 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/11 22:55:24 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 #include <string.h>
 #include "pipex.h"
 
-char	*find_path(char **envp)
+char	*find_path(char **env)
 {
 	int	i;
 
 	i = -1;
-	while (envp[++i])
-		if (!ft_strncmp(envp[i], "PATH=", 5))
-			return (envp[i] + 5);
+	while (env[++i])
+		if (!ft_strncmp(env[i], "PATH=", 5))
+			return (env[i] + 5);
 	return (NULL);
 }
 
@@ -53,13 +53,13 @@ void	is_command_relative(char *command, char **path_command)
 	}
 }
 
-char	*command_path(char *command, char **envp)
+char	*command_path(char *command, char **env)
 {
 	char	**path_arr;
 	char	*path_command;
 	int		i;
 
-	path_arr = ft_split((char *const)find_path(envp), ':');
+	path_arr = ft_split((char *const)find_path(env), ':');
 	if (!path_arr)
 		return (NULL);
 	i = -1;
@@ -89,38 +89,38 @@ void	ft_free_split(char **mem_to_free)
 	return ;
 }
 
-int	cmd_execve(char **command_arr, char **envp)
+int	cmd_execve(char **command_arr, char **env)
 {
-	execve(command_arr[0], command_arr, envp);
+	execve(command_arr[0], command_arr, env);
 	perror_msg(command_arr[0]);
 	ft_free_split(command_arr);
 	return (127);
 }
 
-int cmd_init(t_cmd *cmd, char *command, char **envp)
+int cmd_init(t_cmd *cmd, char *command, char **env)
 {
 	cmd->str = command;
 	cmd->arr = ft_split(command, ' ');
 	if (!(cmd->arr))
 		return (127);
-	cmd->path = command_path(cmd->arr[0], envp);
+	cmd->path = command_path(cmd->arr[0], env);
 	if (cmd->path == NULL)
 	{
 		ft_free_split(cmd->arr);
 		return (perror_cmd_msg(command), 127);
 	}
-	cmd->env = envp;
+	cmd->env = env;
 	return (0);
 }
 
-int		command_call(char *command, char **envp)
+int		command_call(char *command, char **env)
 {
 	t_cmd	cmd;
 	int		err;
 
-	if (cmd_init(&cmd, command, envp))
+	if (cmd_init(&cmd, command, env))
 		exit (127);
-	err = execve(cmd.path, cmd.arr, envp);
+	err = execve(cmd.path, cmd.arr, env);
 	if (err)
 	{
 		if (err == -1)
@@ -132,7 +132,7 @@ int		command_call(char *command, char **envp)
 	exit (127);
 }
 
-// int	command_exec(char *command, char **envp)
+// int	command_exec(char *command, char **env)
 // {
 // 	char	**cmd_arr;
 // 	char	*path;
@@ -140,14 +140,14 @@ int		command_call(char *command, char **envp)
 // 	cmd_arr = ft_split(command, ' ');
 // 	if (!cmd_arr)
 // 		return (127);
-// 	path = command_path(cmd_arr[0], envp);
+// 	path = command_path(cmd_arr[0], env);
 // 	printf("path: %s\n", path);
 // 	if (path == NULL)
 // 		return (perror_cmd_msg(command), 127);
 // 	printf("accces: %d\n", access(path, F_OK));
 // 	if (access(path, F_OK))
 // 		return (perror_cmd_is_dir(command), 126);
-// 	execve(path, cmd_arr, envp);
+// 	execve(path, cmd_arr, env);
 // 	perror_msg(command);
 // 	ft_free_split(cmd_arr);
 // 	return (127);
