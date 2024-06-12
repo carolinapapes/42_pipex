@@ -10,59 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <fcntl.h>
 #include "pipex.h"
 #include "../libs/libft/libft.h"
-#include <stdlib.h>
-#include <sys/types.h>
-#include "files_fd.h"
 
-int	is_first_item(t_list *list)
+static void	process_init(t_process **process)
 {
-	if (!list->next)
-		return (1);
-	return (0);
-}
-
-void	*ft_lst_beforelast(t_list *list)
-{
-	t_list	*tmp;
-
-	if (!list || !list->next)
-		return (NULL);
-	tmp = list;
-	while (tmp->next && tmp->next->next)
-		tmp = tmp->next;
-	return (tmp->content);
-}
-
-void	input_set__first(t_process *first, char *file)
-{
-	first->input[WRITE_END] = -1;
-	first->input[READ_END] = open(file, O_RDONLY);
-	if (first->input[READ_END] == -1)
-		perror_msg(file);
+	(*process)->pid = -1;
+	(*process)->input[0] = -1;
+	(*process)->input[1] = -1;
+	(*process)->output[0] = -1;
+	(*process)->output[1] = -1;
 	return ;
 }
 
-void	input_set__nonfirst(t_list *list, t_process *last)
+static void	ft_allocate_process(t_process **process)
 {
-	t_process	*beforelast;
-
-	beforelast = (t_process *)ft_lst_beforelast(list);
-	last->input[READ_END] = beforelast->output[READ_END];
-	last->input[WRITE_END] = beforelast->output[WRITE_END];
+	*process = (t_process *)malloc(sizeof(t_process));
+	if (!(*process))
+		perror_msg("malloc");
 	return ;
 }
 
-void	input_set(t_list *list, t_process *current, char *file, int is_first)
+t_process	*create_process(t_list **list)
 {
-	if (is_first)
-		input_set__first(current, file);
-	else
-		input_set__nonfirst(list, current);
-	return ;
+	t_process	*process;
+
+	ft_allocate_process(&process);
+	process_init(&process);
+	ft_lstadd_front(list, ft_lstnew((void *)process));
+	return (process);
 }

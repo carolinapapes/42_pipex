@@ -21,29 +21,7 @@
 #include <sys/types.h>
 #include "files_fd.h"
 #include "files_fd.h"
-
-static void	process_init(t_process *process)
-{
-	process->pid = -1;
-	process->input[0] = -1;
-	process->input[1] = -1;
-	process->output[0] = -1;
-	process->output[1] = -1;
-}
-
-t_process	*ft_allocate_process(void)
-{
-	t_process	*process;
-
-	process = (t_process *)malloc(sizeof(t_process));
-	if (!process)
-	{
-		perror_msg("malloc");
-		return (NULL);
-	}
-	process_init(process);
-	return (process);
-}
+#include "process.h"
 
 t_cmd_new	*ft_allocate_cmd(t_cmd_new *cmd)
 {
@@ -95,16 +73,6 @@ void	ft_wait_for_all(t_process *process)
 		waitpid(process->pid, NULL, 0);
 }
 
-void	ft_print_process_data(t_process *process)
-{
-	printf("\n\npid: %d\ninput: read: %d write: %d\noutput: read: %d write: %d\ncmd: %s\ncmd path: %s\n\n", process->pid, process->input[READ_END], process->input[WRITE_END], process->output[READ_END], process->output[WRITE_END], process->cmd_new.str, process->cmd_new.path);
-}
-
-void	print_open_files(int *fd, char *call)
-{
-	printf("files opened by: %s\n read: %d\n write: %d\n", call, fd[READ_END], fd[WRITE_END]);
-}
-
 void	ft_manage_child(t_process *process, char *command, char **env)
 {
 	process_fds(process->input, process->output, FT_FD_INIT | FT_FD_DUP);
@@ -116,17 +84,6 @@ void	ft_manage_child(t_process *process, char *command, char **env)
 	exit(0);
 }
 
-t_process	*create_process(t_list **list)
-{
-	t_process	*process;
-
-	process = ft_allocate_process();
-	if (!process)
-		exit (1); //clean here
-	ft_lstadd_back(list, ft_lstnew((void *)process));
-	return (process);
-}
-
 void	fork_process(t_process *process)
 {
 	process->pid = fork();
@@ -134,23 +91,15 @@ void	fork_process(t_process *process)
 		perror_msg("fork");
 }
 
-#define  struct s_program
-{
-	char	**cmdv;
-	int		*cmdc;
-	char	**env;
-	int 	fd_names[2];
-}
-
 int	pipex_new(int argc, char **argv, char **env)
 {
 	t_list		*list;
 	t_process	*process;
 	int			i;
-	int			fd[2];
+	char		*fd_names[2];
 
-	fd[READ_END] = argv[1];
-	fd[WRITE_END] = argv[argc - 1];
+	fd_names[READ_END] = argv[1];
+	fd_names[WRITE_END] = argv[argc - 1];
 	list = NULL;
 	process = NULL;
 	i = 1;
@@ -159,8 +108,7 @@ int	pipex_new(int argc, char **argv, char **env)
 		process = create_process(&list);
 		if (!list || !process)
 			return (1);
-		input_set(list, process, fd[READ_END], i == 2);
-		output_set(process, fd[WRITE_END], i == argc - 2);
+		io_set(list, process, fd_names[READ_END], i == argc - 2);
 		fork_process(process);
 		if (process->pid == 0)
 			ft_manage_child(process, argv[i], env);

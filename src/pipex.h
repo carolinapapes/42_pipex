@@ -39,10 +39,10 @@ typedef struct s_pipe
 
 typedef struct s_cmd_new
 {
+	char	*path;
 	char	*str;
 	char	**arr;
 	char	**env;
-	char	*path;
 }	t_cmd_new;
 
 typedef struct s_process
@@ -52,6 +52,14 @@ typedef struct s_process
 	int			input[2];
 	int			output[2];
 }	t_process;
+
+typedef  struct s_program
+{
+	int			fd_names[2];
+	int			*cmdc;
+	char		**cmdv;
+	char		**env;
+}				t_program;
 
 int		is_parse_valid(int argc, char **argv);
 int		pipex(int argc, char **argv, char **env);

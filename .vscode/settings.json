@@ -5,6 +5,9 @@
 		"wait.h": "c",
 		"libft.h": "c",
 		"stdio.h": "c",
-		"pipex.h": "c"
+		"pipex.h": "c",
+		"unistd.h": "c",
+		"types.h": "c",
+		"fcntl.h": "c"
 	}
 }
