@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 22:27:50 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/11 22:55:52 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/12 23:37:24 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 void	fd_close(int *fd)
 {
-	close(fd[0]);
-	close(fd[1]);
+	close(fd[READ_END]);
+	close(fd[WRITE_END]);
 }
 
 int	process_child(int *fd_read, int *fd_output, char *command, char **env)

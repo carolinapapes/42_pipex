@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:09:09 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/12 22:13:39 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/12 23:50:27 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ static void	px_process__allocate(t_process **process)
 t_process	*px_process(t_list **list)
 {
 	t_process	*process;
+	t_list		*new;
 
 	px_process__allocate(&process);
 	px_process__init(&process);
-	ft_lstadd_front(list, ft_lstnew((void *)process));
+	new = ft_lstnew((void *)process);
+	ft_lstadd_front(list, new);
 	return (process);
 }

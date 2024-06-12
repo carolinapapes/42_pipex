@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 23:18:11 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/11 22:55:24 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/12 23:33:33 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int cmd_init(t_cmd *cmd, char *command, char **env)
 	return (0);
 }
 
-int		command_call(char *command, char **env)
+int	command_call(char *command, char **env)
 {
 	t_cmd	cmd;
 	int		err;
@@ -131,24 +131,3 @@ int		command_call(char *command, char **env)
 	ft_free_split(cmd.arr);
 	exit (127);
 }
-
-// int	command_exec(char *command, char **env)
-// {
-// 	char	**cmd_arr;
-// 	char	*path;
-
-// 	cmd_arr = ft_split(command, ' ');
-// 	if (!cmd_arr)
-// 		return (127);
-// 	path = command_path(cmd_arr[0], env);
-// 	printf("path: %s\n", path);
-// 	if (path == NULL)
-// 		return (perror_cmd_msg(command), 127);
-// 	printf("accces: %d\n", access(path, F_OK));
-// 	if (access(path, F_OK))
-// 		return (perror_cmd_is_dir(command), 126);
-// 	execve(path, cmd_arr, env);
-// 	perror_msg(command);
-// 	ft_free_split(cmd_arr);
-// 	return (127);
-// }

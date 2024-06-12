@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_output.c                                   :+:      :+:    :+:   */
+/*   process_io.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:45:31 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/12 20:32:10 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/12 23:36:19 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ static void	input_set__first(t_process *first, char *file)
 	return ;
 }
 
-static void	input_set__nonfirst(t_list *list, t_process *current)
+static void	input_set(t_list *list, t_process *current)
 {
-	t_process	*second;
+	t_process	*prev;
 
-	second = (t_process *)list->next->content;
-	current->input[READ_END] = second->output[READ_END];
-	current->input[WRITE_END] = second->output[WRITE_END];
+	prev = (t_process *)list->next->content;
+	current->input[READ_END] = prev->output[READ_END];
+	current->input[WRITE_END] = prev->output[WRITE_END];
 	return ;
 }
 
@@ -44,7 +44,7 @@ static void	output_set__last(t_process *last, char *file)
 	return ;
 }
 
-static void	output_set__nonlast(t_process *current)
+static void	output_set(t_process *current)
 {
 	if (pipe(current->output) < 0)
 		perror_msg("pipe");
@@ -58,10 +58,10 @@ void	io_set(t_list *list, char *file[2], int is_last)
 	if (!list->next)
 		input_set__first(current, file[READ_END]);
 	else
-		input_set__nonfirst(list, current);
+		input_set(list, current);
 	if (is_last)
 		output_set__last(current, file[WRITE_END]);
 	else
-		output_set__nonlast(current);
+		output_set(current);
 	return ;
 }

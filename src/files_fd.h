@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 22:34:56 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/12 01:05:24 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/12 23:56:30 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,4 @@
 # define IS_LAST_PROCESS 2
 
 void	process_fds(int *fd_input, int *fd_output, int code);
-void	input_set(t_list *list, t_process *current, char *file, int is_first);
-void	output_set(t_process *current, char *file, int is_last);
 #endif

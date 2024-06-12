@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 22:45:38 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/12 22:15:21 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/13 00:11:34 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,13 @@ void	ft_close_process_input_fds(t_process *process)
 
 void	ft_wait_for_all(t_process *process)
 {
-	while (process)
-		waitpid(process->pid, NULL, 0);
+	waitpid(process->pid, NULL, 0);
 }
 
 void	ft_manage_child(t_process *process, char *command, char **env)
 {
 	process_fds(process->input, process->output, FT_FD_INIT | FT_FD_DUP);
-	if (process->input[READ_END] == -1)
-		process_fds(process->input, process->output, FT_FD_ERROR | FT_FD_CLOSE);
-	else
+	if (process->input[READ_END] >= 0)
 		command_call(command, env);
 	process_fds(process->input, process->output, FT_FD_CLOSE);
 	exit(0);
@@ -103,8 +100,6 @@ int	pipex_new(t_program *program)
 	while (++i < program->cmdc - 1)
 	{
 		process = px_process(&list);
-		if (!list || !process)
-			return (1);
 		io_set(list, program->fd_names, i == program->cmdc - 2);
 		fork_process(process);
 		if (process->pid == 0)
@@ -112,5 +107,6 @@ int	pipex_new(t_program *program)
 		fd_close(process->input);
 	}
 	fd_close(process->output);
+	ft_lstiter(list, (void *)ft_wait_for_all);
 	return (0);
 }
