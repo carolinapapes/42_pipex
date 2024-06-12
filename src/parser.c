@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:22:11 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/06 23:10:17 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/12 23:01:32 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	is_argc_err(int argc)
 {
-	return (argc > 10);
+	return (argc != 5);
 }
 
 int	is_str_null(char *str)

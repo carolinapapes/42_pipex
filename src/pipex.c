@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:58:07 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/11 22:55:24 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/12 20:05:43 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	pipe_initialize(t_pipe *s_pipe, int argc, char **argv)
 	open_infiles(s_pipe->fd_inside, s_pipe);
 }
 
-int		pipex(int argc, char **argv, char **env)
+int	pipex(int argc, char **argv, char **env)
 {
 	t_pipe	s_pipe;
 	int		is_fork;

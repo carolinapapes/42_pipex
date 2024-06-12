@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 22:45:38 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/12 01:19:35 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/12 22:15:21 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,30 +91,26 @@ void	fork_process(t_process *process)
 		perror_msg("fork");
 }
 
-int	pipex_new(int argc, char **argv, char **env)
+int	pipex_new(t_program *program)
 {
+	int			i;
 	t_list		*list;
 	t_process	*process;
-	int			i;
-	char		*fd_names[2];
 
-	fd_names[READ_END] = argv[1];
-	fd_names[WRITE_END] = argv[argc - 1];
+	i = -1;
 	list = NULL;
 	process = NULL;
-	i = 1;
-	while (++i < argc - 1)
+	while (++i < program->cmdc - 1)
 	{
-		process = create_process(&list);
+		process = px_process(&list);
 		if (!list || !process)
 			return (1);
-		io_set(list, process, fd_names[READ_END], i == argc - 2);
+		io_set(list, program->fd_names, i == program->cmdc - 2);
 		fork_process(process);
 		if (process->pid == 0)
-			ft_manage_child(process, argv[i], env);
+			ft_manage_child(process, program->cmdv[i], program->env);
 		fd_close(process->input);
 	}
 	fd_close(process->output);
-	ft_lstclear(&list, free);
 	return (0);
 }

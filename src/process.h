@@ -5,7 +5,7 @@
 # include "../libs/libft/libft.h"
 # include "pipex.h"
 
-void	*create_process(t_list **list);
-void	io_set(t_list *list, t_process *current, char *file, int position);
+void	*px_process(t_list **list);
+void	io_set(t_list *list, char *file[2], int is_last);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:37:37 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/12 01:01:23 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/12 21:47:21 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ typedef struct s_process
 	int			output[2];
 }	t_process;
 
-typedef  struct s_program
+typedef struct s_program
 {
-	int			fd_names[2];
-	int			*cmdc;
+	char		*fd_names[2];
+	int			cmdc;
 	char		**cmdv;
 	char		**env;
 }				t_program;
@@ -69,7 +69,7 @@ void	perror_cmd_msg(char *msg);
 void	perror_cmd_is_dir(char *msg);
 int		process_child(int *fd_input, int *fd_output, char *command, char **env);
 void	fd_close(int *fd);
-int		pipex_new(int argc, char **argv, char **env);
+int		pipex_new(t_program *program);
 char	*command_path(char *command, char **env);
 
 #endif

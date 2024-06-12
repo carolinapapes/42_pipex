@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:45:31 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/12 01:05:52 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/12 20:32:10 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,17 @@ static void	output_set__nonlast(t_process *current)
 		perror_msg("pipe");
 }
 
-void	io_set(t_list *list, char *file, int is_last)
+void	io_set(t_list *list, char *file[2], int is_last)
 {
 	t_process	*current;
 
 	current = (t_process *)list->content;
 	if (!list->next)
-		input_set__first(current, file);
+		input_set__first(current, file[READ_END]);
 	else
 		input_set__nonfirst(list, current);
 	if (is_last)
-		output_set__last(current, file);
+		output_set__last(current, file[WRITE_END]);
 	else
 		output_set__nonlast(current);
 	return ;
