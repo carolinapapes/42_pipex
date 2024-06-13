@@ -13,8 +13,9 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include "../libs/libft/libft.h"
-#include "files_fd.h"
+#include "px_fd.h"
 #include "pipex.h"
+#include "px_types.h"
 
 static void	input_set__first(t_process *first, char *file)
 {

@@ -16,14 +16,14 @@
 #include <string.h>
 #include "pipex.h"
 
-char	*find_path(char **env)
+char const	*strv__find(char **env, char *KEY)
 {
-	int	i;
+	int len;
 
-	i = -1;
-	while (env[++i])
-		if (!ft_strncmp(env[i], "PATH=", 5))
-			return (env[i] + 5);
+	len = ft_strlen(KEY);
+	while (env++)
+		if (!ft_strncmp(env[0], KEY, len))
+			return ((char const*)(env[0] + len));
 	return (NULL);
 }
 
@@ -53,13 +53,24 @@ void	is_command_relative(char *command, char **path_command)
 	}
 }
 
+void	ft_split__free(char **strs)
+{
+	int	i;
+
+	i = -1;
+	while (strs[++i])
+		free(strs[i]);
+	free(strs);
+	return ;
+}
+
 char	*command_path(char *command, char **env)
 {
 	char	**path_arr;
 	char	*path_command;
 	int		i;
 
-	path_arr = ft_split((char *const)find_path(env), ':');
+	path_arr = ft_split((char *const)strv__find(env, "PATH="), ':');
 	if (!path_arr)
 		return (NULL);
 	i = -1;
@@ -71,63 +82,35 @@ char	*command_path(char *command, char **env)
 			return (path_command);
 		}
 	}
-	i = 0;
-	while (path_arr[++i])
-		free(path_arr[i]);
-	free(path_arr);
+	ft_split__free(path_arr);
 	return (NULL);
 }
 
-void	ft_free_split(char **mem_to_free)
-{
-	int	i;
 
-	i = -1;
-	while (mem_to_free[++i])
-		free(mem_to_free[i]);
-	free(mem_to_free);
-	return ;
-}
-
-int	cmd_execve(char **command_arr, char **env)
-{
-	execve(command_arr[0], command_arr, env);
-	perror_msg(command_arr[0]);
-	ft_free_split(command_arr);
-	return (127);
-}
-
+// add split error handling, add path error handling
 int cmd_init(t_cmd *cmd, char *command, char **env)
 {
 	cmd->str = command;
+	cmd->env = env;
 	cmd->arr = ft_split(command, ' ');
 	if (!(cmd->arr))
 		return (127);
 	cmd->path = command_path(cmd->arr[0], env);
-	if (cmd->path == NULL)
-	{
-		ft_free_split(cmd->arr);
-		return (perror_cmd_msg(command), 127);
-	}
-	cmd->env = env;
-	return (0);
+	if (cmd->path)
+		return (0);
+	ft_split__free(cmd->arr);
+	perror_cmd_msg(command);
+	return (127);
 }
 
-int	command_call(char *command, char **env)
+int	px_cmd(char *command, char **env)
 {
 	t_cmd	cmd;
-	int		err;
 
 	if (cmd_init(&cmd, command, env))
 		exit (127);
-	err = execve(cmd.path, cmd.arr, env);
-	if (err)
-	{
-		if (err == -1)
-			return (perror_cmd_is_dir(command), 126);
-		return (perror_msg(command), 127);
-	}
+	execve(cmd.path, cmd.arr, env);
 	perror_msg(command);
-	ft_free_split(cmd.arr);
+	ft_split__free(cmd.arr);
 	exit (127);
 }

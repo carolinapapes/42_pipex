@@ -101,3 +101,10 @@ void	perror_cmd_is_dir(char *msg)
 	free(error_message);
 	return ;
 }
+
+void	error_exit(char *command, void *fn_cleanup(void *), void *clean_obj)
+{
+	perror_msg(command);
+	fn_cleanup(clean_obj);
+	exit(1);
+}

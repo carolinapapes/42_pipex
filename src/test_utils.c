@@ -1,4 +1,5 @@
 #include "pipex.h"
+# include "px_types.h"
 
 void	ft_print_process_data(t_process *process)
 {

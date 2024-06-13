@@ -10,103 +10,61 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/wait.h>
 #include <fcntl.h>
-#include "pipex.h"
-#include "../libs/libft/libft.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <sys/types.h>
-#include "files_fd.h"
-#include "files_fd.h"
-#include "process.h"
+#include <unistd.h>
+#include "../libs/libft/libft.h"
+#include "pipex.h"
+#include "px_fd.h"
+#include "px_process.h"
+#include "px_program.h"
 
-t_cmd_new	*ft_allocate_cmd(t_cmd_new *cmd)
-{
-	cmd = (t_cmd_new *)malloc(sizeof(t_cmd_new));
-	if (!cmd)
-		return (NULL);
-	cmd->str = NULL;
-	cmd->arr = NULL;
-	cmd->env = NULL;
-	cmd->path = NULL;
-	return (cmd);
-}
-
-void	ft_init_cmd(t_cmd_new *cmd, char *str, char **env)
-{
-	ft_allocate_cmd(cmd);
-	if (!cmd)
-		return ;
-	cmd->str = str;
-	cmd->arr = ft_split(str, ' ');
-	cmd->env = env;
-	cmd->path = command_path(str, env);
-}
-
-void	ft_open_files(int fd[2], int argc, char **argv)
-{
-	fd[READ_END] = open(argv[1], O_RDONLY);
-	if (fd[READ_END] == -1)
-		perror_msg(argv[1]);
-	fd[WRITE_END] = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd[WRITE_END] == -1)
-		perror_msg(argv[argc - 1]);
-	printf("files opened\n");
-}
-
-void	ft_close_process_input_fds(t_process *process)
-{
-	if (process->input[READ_END] != -1)
-		close(process->input[READ_END]);
-	if (process->input[WRITE_END] != -1)
-		close(process->input[WRITE_END]);
-	process->input[READ_END] = -1;
-	process->input[WRITE_END] = -1;
-}
-
-void	ft_wait_for_all(t_process *process)
+void	px_process__wait(t_process *process)
 {
 	waitpid(process->pid, NULL, 0);
 }
 
-void	ft_manage_child(t_process *process, char *command, char **env)
+void	px_child(t_process *process, char *command, char **env)
 {
-	process_fds(process->input, process->output, FT_FD_INIT | FT_FD_DUP);
+	px_pipes_fd(process->input, process->output, FT_FD_INIT | FT_FD_DUP);
 	if (process->input[READ_END] >= 0)
-		command_call(command, env);
-	process_fds(process->input, process->output, FT_FD_CLOSE);
+		px_cmd(command, env);
+	px_pipes_fd(process->input, process->output, FT_FD_CLOSE);
 	exit(0);
 }
 
-void	fork_process(t_process *process)
+void	px_process__fork(t_process *process)
 {
 	process->pid = fork();
 	if (process->pid == -1)
 		perror_msg("fork");
 }
 
+t_process *content(t_list *lst)
+{
+	return ((t_process *)lst->content);
+}
+
 int	pipex_new(t_program *program)
 {
 	int			i;
 	t_list		*list;
-	t_process	*process;
 
 	i = -1;
 	list = NULL;
-	process = NULL;
-	while (++i < program->cmdc - 1)
+	while (++i < program->cmdc)
 	{
-		process = px_process(&list);
-		io_set(list, program->fd_names, i == program->cmdc - 2);
-		fork_process(process);
-		if (process->pid == 0)
-			ft_manage_child(process, program->cmdv[i], program->env);
-		fd_close(process->input);
+		px_process(&list);
+		io_set(list, program->fd_names, i == program->cmdc - 1);
+		fork_process(content(list));
+		if (content(list)->pid == 0)
+			px_child(content(list), program->cmdv[i], program->env);
+		fd_close(content(list)->input);
 	}
-	fd_close(process->output);
-	ft_lstiter(list, (void *)ft_wait_for_all);
+	fd_close(content(list)->output);
+	ft_lstiter(list, (void *)px_process__wait);
 	return (0);
 }

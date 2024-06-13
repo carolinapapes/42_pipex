@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   paths.c                                            :+:      :+:    :+:   */
+/*   files_fd.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/09 11:42:56 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/10 12:34:25 by carolinapap      ###   ########.fr       */
+/*   Created: 2024/06/06 22:34:56 by carolinapap       #+#    #+#             */
+/*   Updated: 2024/06/12 23:56:30 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#ifndef PX_FD_H
+# define PX_FD_H
+# include "../libs/libft/libft.h"
+# include "pipex.h"
+# define READ_END 0
+# define WRITE_END 1
 
-is_path_absolute(char *path)
-{
-	return (path[0] == '/');
-}
+# define FT_FD_INIT 1
+# define FT_FD_ERROR 2
+# define FT_FD_DUP 4
+# define FT_FD_CLOSE 8
 
-is_path_relative(char *path)
-{
-	return (path[0] == '.' && path[1] == '/');
-}
+# define IS_FIRST_PROCESS 1
+# define IS_LAST_PROCESS 2
+
+void	px_pipes_fd(int *fd_input, int *fd_output, int code);
+#endif

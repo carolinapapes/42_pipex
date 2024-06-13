@@ -2,7 +2,8 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 SRC_DIR = ./src
-SRC = main.c parser.c pipex.c commands.c pipex_err.c child.c files_fd.c pipex_new.c processes.c process_io.c
+SRC = main.c parser.c commands.c pipex_err.c \
+px_fd.c pipex_new.c px_process.c process_io.c px_program.c
 BUILD_DIR = ./build
 
 # LIBS

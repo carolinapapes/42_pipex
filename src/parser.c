@@ -13,9 +13,9 @@
 #include <stdio.h>
 #include "../libs/libft/libft.h"
 
-int	is_argc_err(int argc)
+int	is_argc_valid(int argc)
 {
-	return (argc != 5);
+	return (argc == 5);
 }
 
 int	is_str_null(char *str)
@@ -23,21 +23,22 @@ int	is_str_null(char *str)
 	return (!str);
 }
 
-int	find_args(int argc, char **argv, int (*f)(char *str))
+int	iterargs(int argc, char **argv, int (*f)(char *str))
 {
 	int	i;
 
 	i = -1;
 	while (++i < argc)
 		if (f(argv[i]))
-			return (1);
-	return (0);
+			return (0);
+	return (1);
 }
 
-int	is_parse_valid(int argc, char **argv)
+void	px_validate_input(int argc, char **argv)
 {
-	if (is_argc_err(argc) \
-		|| find_args(argc, argv, is_str_null))
-		return (ft_putstr_fd("Pipex: invalid args.\n", 1), 0);
-	return (1);
+	if (is_argc_valid(argc) \
+		&& iterargs(argc, argv, is_str_null))
+		return ;
+	ft_putstr_fd("Pipex: invalid args.\n", 2);
+	exit (1);
 }

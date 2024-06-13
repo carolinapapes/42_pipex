@@ -8,6 +8,9 @@
 		"pipex.h": "c",
 		"unistd.h": "c",
 		"types.h": "c",
-		"fcntl.h": "c"
+		"fcntl.h": "c",
+		"program.h": "c",
+		"px_types.h": "c",
+		"px_process.h": "c"
 	}
 }

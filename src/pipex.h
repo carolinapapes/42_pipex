@@ -45,31 +45,13 @@ typedef struct s_cmd_new
 	char	**env;
 }	t_cmd_new;
 
-typedef struct s_process
-{
-	t_cmd_new	cmd_new;
-	int			pid;
-	int			input[2];
-	int			output[2];
-}	t_process;
-
-typedef struct s_program
-{
-	char		*fd_names[2];
-	int			cmdc;
-	char		**cmdv;
-	char		**env;
-}				t_program;
-
-int		is_parse_valid(int argc, char **argv);
-int		pipex(int argc, char **argv, char **env);
-int		command_call(char *command, char **env);
+void	px_validate_input(int argc, char **argv);
+int		px_cmd(char *command, char **env);
 void	perror_msg(char *msg);
 void	perror_cmd_msg(char *msg);
 void	perror_cmd_is_dir(char *msg);
 int		process_child(int *fd_input, int *fd_output, char *command, char **env);
 void	fd_close(int *fd);
-int		pipex_new(t_program *program);
 char	*command_path(char *command, char **env);
 
 #endif

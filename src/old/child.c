@@ -16,18 +16,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void	fd_close(int *fd)
-{
-	close(fd[READ_END]);
-	close(fd[WRITE_END]);
-}
-
 int	process_child(int *fd_read, int *fd_output, char *command, char **env)
 {
 	int	i;
 
-	process_fds(fd_read, fd_output, FT_FD_INIT | FT_FD_ERROR | FT_FD_DUP);
-	i = command_call(command, env);
-	process_fds(fd_read, fd_output, FT_FD_CLOSE);
+	px_pipes_fd(fd_read, fd_output, FT_FD_INIT | FT_FD_ERROR | FT_FD_DUP);
+	i = px_cmd(command, env);
+	px_pipes_fd(fd_read, fd_output, FT_FD_CLOSE);
 	exit(i);
 }
