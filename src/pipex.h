@@ -14,38 +14,14 @@
 
 # define PIPEX_H
 
-typedef struct s_cmd
-{
-	char	*str;
-	char	**arr;
-	char	**env;
-	char	*path;
-}	t_cmd;
 
-// typedef struct s_pipe
-// {
-// 	int	pid_in;
-// 	int	pid_out;
-// 	int	signal_in[1];
-// 	int	signal_out[1];
-// 	int	fd_inside[2];
-// 	int	fd_outside[2];
-// }		t_pipe;
-
-typedef struct s_cmd_new
-{
-	char	*path;
-	char	*str;
-	char	**arr;
-	char	**env;
-}	t_cmd_new;
-
-void	px_validate_input(int argc, char **argv);
-int		px_cmd(char *command, char **env);
-void	perror_msg(char *msg);
-void	perror_cmd_msg(char *msg);
-int		process_child(int *fd_input, int *fd_output, char *command, char **env);
-void	fd_close(int *fd);
-char	*command_path(char *command, char **env);
+void		px_validate_input(int argc, char **argv);
+int			px_cmd(char *command, char **env);
+void		perror_msg(char *msg);
+void		perror_cmd_msg(char *msg);
+int			process_child(int *fd_input, int *fd_output, char *command, char **env);
+void		fd_close(int *fd);
+char const	*ft_str__find(char **env, char *key);
+void		ft_split__free(char **strs);
 
 #endif

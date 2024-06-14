@@ -15,6 +15,7 @@
 #include "px_fd.h"
 #include "px_types.h"
 #include "pipex.h"
+#include <stdio.h>
 
 static void	input_set(t_list *list, t_process *current)
 {

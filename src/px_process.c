@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libs/libft/libft.h"
 #include "pipex.h"
 #include "px_process.h"
 #include "px_types.h"

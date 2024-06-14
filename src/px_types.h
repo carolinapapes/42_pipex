@@ -40,4 +40,12 @@ typedef struct s_program
 	char		**env;
 }				t_program;
 
+typedef struct s_cmd
+{
+	char	*str;
+	char	**arr;
+	char	**env;
+	char	*path;
+}	t_cmd;
+
 #endif

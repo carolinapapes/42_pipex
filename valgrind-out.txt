@@ -1,0 +1,14 @@
+==784185== Memcheck, a memory error detector
+==784185== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==784185== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==784185== Command: ./pipex infile cat grep\ problems outfile
+==784185== Parent PID: 771746
+==784185== 
+==784185== 
+==784185== HEAP SUMMARY:
+==784185==     in use at exit: 0 bytes in 0 blocks
+==784185==   total heap usage: 5 allocs, 5 frees, 96 bytes allocated
+==784185== 
+==784185== All heap blocks were freed -- no leaks are possible
+==784185== 
+==784185== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

@@ -16,7 +16,7 @@
 
 void	px_close__check(int fd)
 {
-	if (fd < -1)
+	if (fd < 0)
 		return ;
 	if (close(fd) == -1)
 		perror_msg("close");

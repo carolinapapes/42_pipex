@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include "../libs/libft/libft.h"
 #include <stdio.h>
+#include "pipex.h"
 #include "px_fd.h"
 #include "px_program.h"
 #include "px_types.h"
