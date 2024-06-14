@@ -1,9 +1,24 @@
-# include "px_types.h"
-# include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   px_process_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/13 22:29:13 by carolinapap       #+#    #+#             */
+/*   Updated: 2024/06/13 22:57:38 by carolinapap      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void px_process__free(void *process)
+#include "px_types.h"
+#include <unistd.h>
+#include <stdlib.h>
+#include "pipex.h"
+#include "px_process.h"
+
+void	px_process__free(void *process)
 {
-	if	(process)
+	if (process)
 		free(process);
 	return ;
 }
@@ -21,17 +36,17 @@ void	px_process__wait(t_process *process)
 }
 
 // before exit this function must free program cmds or return
-static void	px_process__allocate(t_process **process)
+// clean list and program and exit
+void	px_process__allocate(t_process **process)
 {
 	*process = (t_process *)malloc(sizeof(t_process));
 	if (*process)
 		return ;
-	// clean list and program and exit
 	perror_msg("process allocation failed");
 	return ;
 }
 
-static void	px_process__init(t_process *process)
+void	px_process__init(t_process *process)
 {
 	process->pid = -1;
 	process->input[0] = -1;
@@ -40,4 +55,3 @@ static void	px_process__init(t_process *process)
 	process->output[1] = -1;
 	return ;
 }
-

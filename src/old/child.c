@@ -6,15 +6,16 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 22:27:50 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/12 23:37:24 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/13 23:24:28 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "pipex.h"
-#include "files_fd.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include "pipex.h"
+#include "px_fd.h"
+#include "px_types.h"
 
 int	process_child(int *fd_read, int *fd_output, char *command, char **env)
 {

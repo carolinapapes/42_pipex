@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 23:18:11 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/12 23:33:33 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/14 00:05:36 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,44 @@
 #include <string.h>
 #include "pipex.h"
 
-char const	*strv__find(char **env, char *KEY)
+char const	*ft_str__find(char **env, char *KEY)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(KEY);
 	while (env++)
 		if (!ft_strncmp(env[0], KEY, len))
-			return ((char const*)(env[0] + len));
+			return ((char const *)(env[0] + len));
 	return (NULL);
 }
 
-int	is_path_valid(char *path, char *command, char **path_command)
+void	ft_split__free(char **strs)
+{
+	int	i;
+
+	i = -1;
+	while (strs[++i])
+		free(strs[i]);
+	free(strs);
+	return ;
+}
+
+char	*is_path_valid(char *path, char *command, char **path_command)
 {
 	char	*path_command_tmp;
+	int		is_valid;
 
 	path_command_tmp = ft_strjoin(path, "/");
 	if (!path_command_tmp)
-		return (0);
+		return (NULL);
 	*path_command = ft_strjoin(path_command_tmp, command);
 	free(path_command_tmp);
 	if (!*path_command)
 		return (0);
-	return (!access(*path_command, R_OK));
+	is_valid = !access(*path_command, R_OK);
+	if (!is_valid)
+		free(*path_command);
+	return (path_command);
 }
 
 void	is_command_relative(char *command, char **path_command)
@@ -53,24 +68,15 @@ void	is_command_relative(char *command, char **path_command)
 	}
 }
 
-void	ft_split__free(char **strs)
-{
-	int	i;
-
-	i = -1;
-	while (strs[++i])
-		free(strs[i]);
-	free(strs);
-	return ;
-}
-
 char	*command_path(char *command, char **env)
 {
-	char	**path_arr;
-	char	*path_command;
-	int		i;
+	int			i;
+	char		**path_arr;
+	char		*path_command;
+	const char	*paths;
 
-	path_arr = ft_split((char *const)strv__find(env, "PATH="), ':');
+	paths = ft_str__find(env, "PATH=");
+	path_arr = ft_split(paths, ':');
 	if (!path_arr)
 		return (NULL);
 	i = -1;
@@ -78,7 +84,7 @@ char	*command_path(char *command, char **env)
 	{
 		if (is_path_valid(path_arr[i], command, &path_command))
 		{
-			free(path_arr[i]);
+			ft_split__free(path_arr);
 			return (path_command);
 		}
 	}
@@ -86,9 +92,8 @@ char	*command_path(char *command, char **env)
 	return (NULL);
 }
 
-
 // add split error handling, add path error handling
-int cmd_init(t_cmd *cmd, char *command, char **env)
+int	cmd_init(t_cmd *cmd, char *command, char **env)
 {
 	cmd->str = command;
 	cmd->env = env;

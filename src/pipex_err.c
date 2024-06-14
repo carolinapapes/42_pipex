@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 22:49:35 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/12 23:34:48 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/13 22:50:30 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../libs/libft/libft.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "px_types.h"
 
 char	*get_error(char *msg)
 {
@@ -90,21 +91,4 @@ void	perror_cmd_msg(char *msg)
 	ft_putstr_fd(error_message, STDERR_FILENO);
 	free(error_message);
 	return ;
-}
-
-void	perror_cmd_is_dir(char *msg)
-{
-	char	*error_message;
-
-	error_message = error_cmd_is_dir(msg);
-	ft_putstr_fd(error_message, STDERR_FILENO);
-	free(error_message);
-	return ;
-}
-
-void	error_exit(char *command, void *fn_cleanup(void *), void *clean_obj)
-{
-	perror_msg(command);
-	fn_cleanup(clean_obj);
-	exit(1);
 }

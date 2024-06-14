@@ -1,6 +1,29 @@
-#ifndef PX_TYPES_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   px_types.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/13 22:15:47 by carolinapap       #+#    #+#             */
+/*   Updated: 2024/06/13 22:46:56 by carolinapap      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#ifndef PX_TYPES_H
 # define PX_TYPES_H
+
+# define PROG_NAME "pipex"
+
+# define READ_END 0
+# define WRITE_END 1
+
+# define FT_FD_INIT 1
+# define FT_FD_ERROR 2
+# define FT_FD_DUP 4
+# define FT_FD_CLOSE 8
+
+# define PROG_NAME "pipex"
 
 typedef struct s_process
 {
