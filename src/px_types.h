@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:15:47 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/15 16:12:10 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/16 09:21:47 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_process
 
 typedef struct s_program
 {
-	int			cmdc;
 	char		**cmdv;
 	char		**env;
 	char		*fd_names[2];

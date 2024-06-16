@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:15:21 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/15 18:03:37 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/16 09:22:01 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	px_program__free(t_program *program)
 	return ;
 }
 
-static void	px_cmds_allocate(t_program *program)
+static void	px_cmds_allocate(t_program *program, int cmdc)
 {
-	program->cmdv = (char **)malloc(sizeof(char *) * (program->cmdc + 1));
+	program->cmdv = (char **)malloc(sizeof(char *) * (cmdc + 1));
 	if (program->cmdv)
 	{
 		return ;
@@ -49,7 +49,6 @@ static void	px_program_assing(t_program *program, char **argv, int argc, char **
 {
 	program->fd_names[READ_END] = argv[1];
 	program->fd_names[WRITE_END] = argv[argc - 1];
-	program->cmdc = argc - 3;
 	program->env = env;
 	return ;
 }
@@ -75,7 +74,7 @@ static void	px_program_assing(t_program *program, char **argv, int argc, char **
 void	px_program(t_program *program, int argc, char **argv, char **env)
 {
 	px_program_assing(program, argv, argc, env);
-	px_cmds_allocate(program);
+	px_cmds_allocate(program, argc - 3);
 	px_cmds_assing(program, argv, argc);
 	return ;
 }

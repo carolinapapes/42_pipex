@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 21:26:02 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/16 09:03:42 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/16 09:36:10 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,31 +59,32 @@ void	px_child(t_program *program, char *cmd, t_list **list)
  * ALLOCATED: program->cmdv, list, list->content(process);
  */
 
-void	close_pipes(t_list *list, int i, t_program *program)
+void	close_pipes(t_list *list, t_program *program)
 {
 	px_close__full(&(content(list)->input));
-	if (i == program->cmdc - 1)
+	if (!(program->cmdv[1]))
 		px_close__full(&content(list)->output);
 }
 
 int	px_exec(t_program *program)
 {
-	int			i;
 	t_list		*list;
+	char		**cmdv;
 
-	i = -1;
 	list = NULL;
-	while (++i < program->cmdc) // rest program cmdc instead of one
+	cmdv = program->cmdv;
+	while (cmdv[0])
 	{
 		px_process(&list, program);
-		px_fd__set(list, program->fd_names, i == program->cmdc - 1);
+		px_fd__set(list, program->fd_names, !cmdv[1]);
 		px_process__fork(content(list));
 		if (content(list)->pid == 0)
-			px_child(program, program->cmdv[i], &list);
-		close_pipes(list, i, program);
+			px_child(program, cmdv[0], &list);
+		close_pipes(list, program);
+		cmdv++;
 	}
 	ft_lstiter(list, (void *)px_process__wait);
-	// ft_lstclear(&list, (void *)px_process__free);
+	ft_lstclear(&list, (void *)px_process__free);
 	return (0);
 }
 
