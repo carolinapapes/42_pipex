@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:37:46 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/15 23:41:56 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/16 10:59:10 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **env)
 
 	px_validate_input(argc, argv);
 	px_program(&program, argc, argv, env);
-	px_exec(&program);
-	// px_program__free(&program);
+	px_process(&program);
+	px_program__free(&program);
 	return (0);
 }

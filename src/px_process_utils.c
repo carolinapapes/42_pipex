@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:29:13 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/16 08:57:03 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/16 11:04:09 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	px_process__free(void *process)
 {
 	if (process)
 		free(process);
+	process = NULL;
 	return ;
 }
 

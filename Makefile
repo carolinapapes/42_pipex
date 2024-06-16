@@ -6,7 +6,7 @@ SRC = main.c \
 parser.c \
 pipex_err.c \
 utils.c \
-px_fd_set.c \
+px_process__fd.c \
 px_fd_handler.c \
 px_fd.c \
 px_cmd.c \

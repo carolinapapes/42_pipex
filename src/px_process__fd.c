@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fd_init.c                                          :+:      :+:    :+:   */
+/*   px_fd_set.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:45:31 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/15 01:36:04 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/16 10:46:57 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	output_set__last(t_process *current, char *file)
 	return ;
 }
 
-void	px_fd__set(t_list *list, char *file[2], int is_last)
+void	px_process__fd_open(t_list *list, char *file[2], int is_last)
 {
 	t_process	*current;
 

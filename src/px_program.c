@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:15:21 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/16 09:22:01 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/16 11:02:26 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@
 
 void	px_program__free(t_program *program)
 {
+	if (program->list)
+		ft_lstclear(&(program->list), (void *)px_process__free);
+	program->list = NULL;
 	if (program->cmdv)
 		free(program->cmdv);
 	program->cmdv = NULL;
-	return ;
 }
 
-static void	px_cmds_allocate(t_program *program, int cmdc)
+static void	cmds_allocate(t_program *program, int cmdc)
 {
 	program->cmdv = (char **)malloc(sizeof(char *) * (cmdc + 1));
 	if (program->cmdv)
@@ -34,7 +36,7 @@ static void	px_cmds_allocate(t_program *program, int cmdc)
 	exit(1);
 }
 
-static void	px_cmds_assing(t_program *program, char **argv, int argc)
+static void	cmds_assing(t_program *program, char **argv, int argc)
 {
 	int	i;
 
@@ -42,18 +44,15 @@ static void	px_cmds_assing(t_program *program, char **argv, int argc)
 	while (++i < argc - 1)
 		program->cmdv[i - 2] = argv[i];
 	program->cmdv[i - 2] = NULL;
-	return ;
 }
 
-static void	px_program_assing(t_program *program, char **argv, int argc, char **env)
+static void	initialize(t_program *program, char **argv, int argc, char **env)
 {
 	program->fd_names[READ_END] = argv[1];
 	program->fd_names[WRITE_END] = argv[argc - 1];
 	program->env = env;
-	return ;
+	program->list = NULL;
 }
-
-
 
 /**
 	* BRIEF:  
@@ -73,8 +72,7 @@ static void	px_program_assing(t_program *program, char **argv, int argc, char **
 
 void	px_program(t_program *program, int argc, char **argv, char **env)
 {
-	px_program_assing(program, argv, argc, env);
-	px_cmds_allocate(program, argc - 3);
-	px_cmds_assing(program, argv, argc);
-	return ;
+	initialize(program, argv, argc, env);
+	cmds_allocate(program, argc - 3);
+	cmds_assing(program, argv, argc);
 }
