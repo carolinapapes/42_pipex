@@ -6,14 +6,14 @@ SRC = main.c \
 parser.c \
 pipex_err.c \
 utils.c \
-process_io.c \
+px_fd_set.c \
+px_fd_handler.c \
 px_fd.c \
 px_cmd.c \
-px_pipes.c\
+px_exe.c \
 px_process.c \
 px_program.c \
-px_program_utils.c \
-px_process_utils.c
+px_process_utils.c \
 
 BUILD_DIR = ./build
 

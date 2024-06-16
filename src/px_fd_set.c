@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_io.c                                       :+:      :+:    :+:   */
+/*   fd_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:45:31 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/13 22:54:17 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/15 01:36:04 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void	input_set(t_list *list, t_process *current)
 
 static void	input_set__first(t_process *current, char *file)
 {
-	current->input[WRITE_END] = -1;
 	current->input[READ_END] = open(file, O_RDONLY);
 	if (current->input[READ_END] == -1)
 		perror_msg(file);
@@ -44,14 +43,13 @@ static void	output_set(t_process *current)
 
 static void	output_set__last(t_process *current, char *file)
 {
-	current->output[READ_END] = -1;
 	current->output[WRITE_END] = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (current->output[WRITE_END] == -1)
 		perror_msg(file);
 	return ;
 }
 
-void	io_set(t_list *list, char *file[2], int is_last)
+void	px_fd__set(t_list *list, char *file[2], int is_last)
 {
 	t_process	*current;
 

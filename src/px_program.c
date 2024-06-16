@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:15:21 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/13 22:15:38 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/15 18:03:37 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,22 @@ void	px_program__free(t_program *program)
 {
 	if (program->cmdv)
 		free(program->cmdv);
+	program->cmdv = NULL;
 	return ;
 }
 
-void	px_cmds_allocate(t_program *program)
+static void	px_cmds_allocate(t_program *program)
 {
 	program->cmdv = (char **)malloc(sizeof(char *) * (program->cmdc + 1));
 	if (program->cmdv)
 	{
 		return ;
 	}
-	perror_msg("Pipex: malloc error.\n");
+	perror_msg("Pipex: Fatal: failed to allocate memory.\n");
 	exit(1);
 }
 
-void	px_cmds_assing(t_program *program, char **argv, int argc)
+static void	px_cmds_assing(t_program *program, char **argv, int argc)
 {
 	int	i;
 
@@ -44,7 +45,7 @@ void	px_cmds_assing(t_program *program, char **argv, int argc)
 	return ;
 }
 
-void	px_program_assing(t_program *program, char **argv, int argc, char **env)
+static void	px_program_assing(t_program *program, char **argv, int argc, char **env)
 {
 	program->fd_names[READ_END] = argv[1];
 	program->fd_names[WRITE_END] = argv[argc - 1];
@@ -52,6 +53,24 @@ void	px_program_assing(t_program *program, char **argv, int argc, char **env)
 	program->env = env;
 	return ;
 }
+
+
+
+/**
+	* BRIEF:  
+	* Program will handle all the validated inputs from main and 
+	* will assign them to the pipex program struct.
+	*
+	* DESCRIPTION: 
+	* The first and last variables are the file names that will be used as i/o.
+	* They will assigened to the program struct as fd_names. 
+	* The argv and argc arguments will be changed to the parameters needed.
+	* The enviroment will be the same as the one that the program is running.
+	*
+	* ALLOCATED: program.cmdv.
+	* ERROR: malloc error.
+	* EXIT: 1 on malloc error.
+*/
 
 void	px_program(t_program *program, int argc, char **argv, char **env)
 {

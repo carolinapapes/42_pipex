@@ -1,4 +1,9 @@
-Champagne problems
-Champagne problems
-Champagne problems
-Champagne problems
+Makefile
+build
+infile
+libs
+outfile
+pipex
+src
+subject.pdf
+valgrind-out.txt

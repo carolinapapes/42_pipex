@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   commands.c                                         :+:      :+:    :+:   */
+/*   px_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 23:18:11 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/14 00:05:36 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/16 08:55:41 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ path__concat
 	- free tmp
 	- return
 */
-static void 	path__concat(char *cmd_name, char *partial_path, char **cmd_path)
+static void	path__concat(char *cmd_name, char *partial_path, char **cmd_path)
 {
 	char	*tmp;
 
@@ -56,7 +56,7 @@ static void	paths__get(char *cmd_name, char **cmd_path, char **paths__arr)
 }
 
 // add split error handling, add path error handling
-static void cmd__arr(t_cmd *cmd, char separator)
+static void	cmd__arr(t_cmd *cmd, char separator)
 {
 	cmd->arr = ft_split(cmd->str, separator);
 	if (!(cmd->arr))
@@ -75,7 +75,6 @@ cmd__path
 // What happens if path doesnt exist?
 static void	cmd__path(t_cmd *cmd)
 {
-
 	const char	*paths__str;
 	char		**paths__arr;
 
@@ -85,8 +84,8 @@ static void	cmd__path(t_cmd *cmd)
 	ft_split__free(paths__arr);
 	if (cmd->path)
 		return ;
-	perror_cmd_msg(cmd->arr[0]);
-	ft_split__free(cmd->arr);
+	// perror_cmd_msg(cmd->arr[0]);
+	// ft_split__free(cmd->arr);
 }
 
 // add split error handling, add path error handling
