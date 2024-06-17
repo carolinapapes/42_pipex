@@ -15,6 +15,8 @@
 #include "px_fd.h"
 #include "px_program.h"
 #include "px_types.h"
+#include "px_exit.h"
+#include "px_process.h"
 
 int	main(int argc, char **argv, char **env)
 {
@@ -23,6 +25,6 @@ int	main(int argc, char **argv, char **env)
 	px_validate_input(argc, argv);
 	px_program(&program, argc, argv, env);
 	px_process(&program);
-	px_program__free(&program);
+	program__free(&program);
 	return (0);
 }

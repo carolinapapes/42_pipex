@@ -15,8 +15,7 @@
 # define PX_PROGRAM_H
 # include "px_types.h"
 
-int		px_process(t_program *program);
+
 void	px_program(t_program *program, int argc, char **argv, char **env);
-void	px_program__free(t_program *program);
 
 #endif

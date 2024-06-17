@@ -36,42 +36,6 @@ char	*get_error(char *msg)
 	return (free(error_message_2), error_message);
 }
 
-char	*error_cmd_404(char *command)
-{
-	char	*error_message;
-	char	*error_message_2;
-
-	error_message = ft_strjoin(command, ": ");
-	if (!error_message)
-		return (": command not found\n");
-	error_message_2 = ft_strdup(error_message);
-	if (!error_message_2)
-		return (free(error_message), command);
-	error_message = ft_strjoin(error_message, ": command not found\n");
-	if (!error_message)
-		return (free(error_message_2), command);
-	return (free(error_message_2), error_message);
-}
-
-char	*error_cmd_is_dir(char *command)
-{
-	char	*error_message;
-	char	*error_message_2;
-	char	*error_message_3;
-
-	error_message_3 = ft_strjoin(PROG_NAME, ": ");
-	if (!error_message_3 || !command)
-		return (": Is a directory\n");
-	error_message = ft_strjoin(command, ": ");
-	if (!error_message)
-		return (": Is a directory\n");
-	error_message_2 = ft_strjoin(error_message_3, error_message);
-	if (!error_message_2)
-		return (free(error_message), free(error_message_3), \
-			": Is a directory\n");
-	return (free(error_message), free(error_message_3), error_message_2);
-}
-
 void	perror_msg(char *msg)
 {
 	char	*error_message;
@@ -82,13 +46,50 @@ void	perror_msg(char *msg)
 	return ;
 }
 
-void	perror_cmd_msg(char *msg)
-{
-	char	*error_message;
+// void	perror_cmd_msg(char *msg)
+// {
+// 	char	*error_message;
 
-	error_message = get_error(msg);
-	error_message = error_cmd_404(error_message);
-	ft_putstr_fd(error_message, STDERR_FILENO);
-	free(error_message);
-	return ;
-}
+// 	error_message = get_error(msg);
+// 	error_message = error_cmd_404(error_message);
+// 	ft_putstr_fd(error_message, STDERR_FILENO);
+// 	free(error_message);
+// 	return ;
+// }
+
+
+// char	*error_cmd_404(char *command)
+// {
+// 	char	*error_message;
+// 	char	*error_message_2;
+
+// 	error_message = ft_strjoin(command, ": ");
+// 	if (!error_message)
+// 		return (": command not found\n");
+// 	error_message_2 = ft_strdup(error_message);
+// 	if (!error_message_2)
+// 		return (free(error_message), command);
+// 	error_message = ft_strjoin(error_message, ": command not found\n");
+// 	if (!error_message)
+// 		return (free(error_message_2), command);
+// 	return (free(error_message_2), error_message);
+// }
+
+// char	*error_cmd_is_dir(char *command)
+// {
+// 	char	*error_message;
+// 	char	*error_message_2;
+// 	char	*error_message_3;
+
+// 	error_message_3 = ft_strjoin(PROG_NAME, ": ");
+// 	if (!error_message_3 || !command)
+// 		return (": Is a directory\n");
+// 	error_message = ft_strjoin(command, ": ");
+// 	if (!error_message)
+// 		return (": Is a directory\n");
+// 	error_message_2 = ft_strjoin(error_message_3, error_message);
+// 	if (!error_message_2)
+// 		return (free(error_message), free(error_message_3), \
+// 			": Is a directory\n");
+// 	return (free(error_message), free(error_message_3), error_message_2);
+// }

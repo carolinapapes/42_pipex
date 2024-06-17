@@ -27,11 +27,21 @@
 
 # include "../libs/libft/libft.h"
 
+typedef struct s_cmd
+{
+	char	**arr;
+	char	**env;
+	char	*path;
+	char	*str;
+}	t_cmd;
+
 typedef struct s_process
 {
 	int			input[2];
 	int			output[2];
 	int			pid;
+	char		*cmd_str;
+	t_cmd		*cmd;
 }	t_process;
 
 typedef struct s_program
@@ -42,12 +52,6 @@ typedef struct s_program
 	t_list		*list;
 }				t_program;
 
-typedef struct s_cmd
-{
-	char	**arr;
-	char	**env;
-	char	*path;
-	char	*str;
-}	t_cmd;
+
 
 #endif

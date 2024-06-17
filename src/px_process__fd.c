@@ -16,6 +16,7 @@
 #include "px_types.h"
 #include "pipex.h"
 #include <stdio.h>
+#include "px_process.h"
 
 static void	input_set(t_list *list, t_process *current)
 {
@@ -63,4 +64,11 @@ void	px_process__fd_open(t_list *list, char *file[2], int is_last)
 	else
 		output_set__last(current, file[WRITE_END]);
 	return ;
+}
+
+void	px_process__fd_close(t_list *list, t_program *program)
+{
+	px_close__full(&(content(list)->input));
+	if (!(program->cmdv[1]))
+		px_close__full(&content(list)->output);
 }

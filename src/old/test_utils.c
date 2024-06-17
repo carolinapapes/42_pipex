@@ -25,16 +25,3 @@ void	print_open_files(int *fd, char *call)
 {
 	printf("files opened by: %s\n read: %d\n write: %d\n", call, fd[READ_END], fd[WRITE_END]);
 }
-
-
-// void	is_command_relative(char *command, char **path_command)
-// {
-// 	if (ft_strchr(command, '.' == 0))
-// 	{
-// 		*path_command = ft_strdup(command);
-// 		if (!access(*path_command, R_OK))
-// 			return ;
-// 		free(*path_command);
-// 		*path_command = NULL;
-// 	}
-// }

@@ -5,15 +5,17 @@ SRC_DIR = ./src
 SRC = main.c \
 parser.c \
 pipex_err.c \
-utils.c \
-px_process__fd.c \
+px_exit.c \
 px_fd_handler.c \
 px_fd.c \
 px_cmd.c \
-px_exe.c \
+px_process__exec.c \
+px_process__fd.c \
+px_process__init.c \
+px_process__utils.c \
 px_process.c \
 px_program.c \
-px_process_utils.c \
+utils.c \
 
 BUILD_DIR = ./build
 

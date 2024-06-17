@@ -1,9 +1,0 @@
-Makefile
-build
-infile
-libs
-outfile
-pipex
-src
-subject.pdf
-valgrind-out.txt

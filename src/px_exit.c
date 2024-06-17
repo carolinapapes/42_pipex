@@ -17,33 +17,55 @@
 #include "px_process.h"
 #include "px_types.h"
 #include "px_program.h"
+#include <stdio.h>
 
-void	px_process__free(void *process)
+
+// move this function to utils or px_free file
+void	cmd__free(t_cmd *cmd)
 {
-	if (process)
-		free(process);
+	if (!cmd)
+		return ;
+	if (cmd->arr)
+		ft_split__free(cmd->arr);
+	if (cmd->path)
+	{
+		free(cmd->path);
+		cmd->path = NULL;
+	}
+	cmd = NULL;
+}
+
+void	process__free(t_process *process)
+{
+	if (!process)
+		return ;
+	if (process->cmd)
+		cmd__free(process->cmd);
+	free(process);
 	process = NULL;
-	return ;
 }
 
-void	px_process__fork(t_process *process)
+void	program__free(t_program *program)
 {
-	process->pid = fork();
-	if (process->pid == -1)
-		perror_msg("fork");
+	if (!program)
+		return ;
+	if (program->cmdv )
+	{
+		free(program->cmdv);
+		program->cmdv = NULL;
+	}
+	if (program->list)
+		ft_lstclear(&(program->list), (void *)process__free);
+	program->list = NULL;
 }
 
-void	px_process__wait(t_process *process)
-{
-	waitpid(process->pid, NULL, 0);
-}
 
-void	px_process__exit(char *msg, t_program *program, t_process *process)
+void	px_exit(char *msg, t_program *program, t_process *process)
 {
 	perror_msg(msg);
-	if (process)
-		px_process__free(process);
-	if (program)
-		px_program__free(program);
-	exit(1);
+	process__free(process);
+	program__free(program);
+	exit (1);
 }
+
+

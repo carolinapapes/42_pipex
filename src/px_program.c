@@ -12,26 +12,17 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "pipex.h"
-#include "px_program.h"
-#include "px_process.h"
+#include "px_exit.h"
+#include "px_types.h"
 
-void	px_program__free(t_program *program)
-{
-	if (program->list)
-		ft_lstclear(&(program->list), (void *)px_process__free);
-	program->list = NULL;
-	if (program->cmdv)
-		free(program->cmdv);
-}
+
 
 static void	cmds_allocate(t_program *program, int cmdc)
 {
-	program->cmdv = (char **)malloc(sizeof(char *) * (cmdc + 1));
+	program->cmdv = (char **)malloc(sizeof(char *) * cmdc);
 	if (program->cmdv)
 		return ;
-	perror_msg("Pipex: Fatal: failed to allocate memory.\n");
-	exit(1);
+	px_exit("malloc error", program, NULL);
 }
 
 static void	cmds_assing(t_program *program, char **argv, int argc)
@@ -53,12 +44,10 @@ static void	initialize(t_program *program, char **argv, int argc, char **env)
 }
 
 /**
-	* BRIEF:  
-	* Program will handle all the validated inputs from main and 
+	* @brief: Program will handle all the validated inputs from main and 
 	* will assign them to the pipex program struct.
 	*
-	* DESCRIPTION: 
-	* The first and last variables are the file names that will be used as i/o.
+	* @description: The first and last variables are the file names that will be used as i/o.
 	* They will assigened to the program struct as fd_names. 
 	* The argv and argc arguments will be changed to the parameters needed.
 	* The enviroment will be the same as the one that the program is running.
@@ -71,6 +60,6 @@ static void	initialize(t_program *program, char **argv, int argc, char **env)
 void	px_program(t_program *program, int argc, char **argv, char **env)
 {
 	initialize(program, argv, argc, env);
-	cmds_allocate(program, argc - 3);
+	cmds_allocate(program, argc - 2);
 	cmds_assing(program, argv, argc);
 }

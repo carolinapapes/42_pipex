@@ -11,6 +11,8 @@
 		"fcntl.h": "c",
 		"program.h": "c",
 		"px_types.h": "c",
-		"px_process.h": "c"
+		"px_process.h": "c",
+		"px_program.h": "c",
+		"px_exit.h": "c"
 	}
 }

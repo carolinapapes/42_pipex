@@ -15,95 +15,84 @@
 #include <string.h>
 #include "pipex.h"
 #include "px_types.h"
+#include "px_exit.h"
+#include <errno.h>
 
-/*
-path__concat
-	- concat partial path with /
-	- concat previous result with command
-	- free tmp
-	- return
-*/
-static void	path__concat(char *cmd_name, char *partial_path, char **cmd_path)
+
+static void	path__concat(char *name, char *partial_path, char **path, t_process *process)
 {
 	char	*tmp;
 
 	tmp = ft_strjoin(partial_path, "/");
 	if (!tmp)
-		return ;
-	*cmd_path = ft_strjoin(tmp, cmd_name);
+		px_exit("path__concat ft_strjoin failed", NULL, process);
+	*path = ft_strjoin(tmp, name);
+	if (!*path)
+		px_exit("path__concat ft_strjoin failed", NULL, process);
 	free(tmp);
 	tmp = NULL;
 }
 
-/*
-paths__get
-	- iterate over paths while path is not valid
-		- concat env path with command
-
-*/
-static void	paths__get(char *cmd_name, char **cmd_path, char **paths__arr)
+static void	paths__get(char *name, char **path, char **paths__arr, t_process *process)
 {
 	int			i;
 
 	i = -1;
-	path__concat(cmd_name, "", cmd_path);
-	while (access(*cmd_path, R_OK) && paths__arr[++i])
+	path__concat(name, paths__arr[++i], path, process);
+	while (access(*path, R_OK) && paths__arr[++i])
 	{
-		free(*cmd_path);
-		*cmd_path = NULL;
-		path__concat(cmd_name, paths__arr[i], cmd_path);
+		free(*path);
+		*path = NULL;
+		path__concat(name, paths__arr[i], path, process);
+	}
+	if (!paths__arr[i])
+	{
+		free(*path);
+		*path = ft_strdup(name);
+		if (!*path)
+			px_exit("paths__get ft_strdup failed", NULL, process);
 	}
 }
 
-// add split error handling, add path error handling
-static void	cmd__arr(t_cmd *cmd, char separator)
-{
-	cmd->arr = ft_split(cmd->str, separator);
-	if (!(cmd->arr))
-		exit (127);
-}
-
-/*
-cmd__path
-	- get path from env
-	- split path
-	- get vallid path
-	- return or if path is not valid, print error message, clean and exit
-*/
-// Add split error handling
-// add path error handling
-// What happens if path doesnt exist?
-static void	cmd__path(t_cmd *cmd)
+static void	cmd__path(t_process *process)
 {
 	const char	*paths__str;
 	char		**paths__arr;
+	t_cmd		*cmd;
 
+	cmd = process->cmd;
+	cmd->path = NULL;
 	paths__str = ft_str__find(cmd->env, "PATH=");
 	paths__arr = ft_split(paths__str, ':');
-	paths__get(cmd->arr[0], &cmd->path, paths__arr);
+	if (!paths__arr)
+		px_exit("cmd_path", NULL, process);
+	paths__get(cmd->arr[0], &cmd->path, paths__arr, process);
 	ft_split__free(paths__arr);
-	if (cmd->path)
-		return ;
-	// perror_cmd_msg(cmd->arr[0]);
-	// ft_split__free(cmd->arr);
 }
 
-// add split error handling, add path error handling
-static void	px_cmd__init(t_cmd *cmd, char *command, char **env)
+// close fds ?
+static void	cmd__arr(t_process *process, char separator)
 {
-	cmd->str = command;
-	cmd->env = env;
-	cmd__arr(cmd, ' ');
-	cmd__path(cmd);
+	process->cmd->arr = ft_split(process->cmd_str, separator);
+	if (!(process->cmd->arr))
+		px_exit("ft_split", NULL, process);
 }
 
-int	px_cmd(char *command, char **env)
+static void	px_cmd__init(t_process *process, char **env)
+{
+	(process->cmd)->str = process->cmd_str;
+	process->cmd->env = env;
+	cmd__arr(process, ' ');
+	cmd__path(process);
+}
+
+void	px_cmd(t_process *process, char **env)
 {
 	t_cmd	cmd;
 
-	px_cmd__init(&cmd, command, env);
+	process->cmd = &cmd;
+	px_cmd__init(process, env);
 	execve(cmd.path, cmd.arr, env);
-	perror_msg(command);
-	ft_split__free(cmd.arr);
-	exit (127);
+	strerror(errno);
+	px_exit(cmd.path, NULL, process);
 }
