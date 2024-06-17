@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:15:21 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/16 11:02:26 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/16 17:11:18 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include "pipex.h"
 #include "px_program.h"
+#include "px_process.h"
 
 void	px_program__free(t_program *program)
 {
@@ -22,16 +23,13 @@ void	px_program__free(t_program *program)
 	program->list = NULL;
 	if (program->cmdv)
 		free(program->cmdv);
-	program->cmdv = NULL;
 }
 
 static void	cmds_allocate(t_program *program, int cmdc)
 {
 	program->cmdv = (char **)malloc(sizeof(char *) * (cmdc + 1));
 	if (program->cmdv)
-	{
 		return ;
-	}
 	perror_msg("Pipex: Fatal: failed to allocate memory.\n");
 	exit(1);
 }
