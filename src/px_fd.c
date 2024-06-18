@@ -11,15 +11,16 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "px_types.h"
-#include "pipex.h"
+#include "../include/px_types.h"
+#include "../include/pipex.h"
+#include "../include/px_exit.h"
 
 void	px_close__check(int fd)
 {
 	if (fd < 0)
 		return ;
 	if (close(fd) == -1)
-		perror_msg("close");
+		px_perror("close");
 	return ;
 }
 
@@ -29,10 +30,4 @@ void	px_close__full(int (*fd)[2])
 	px_close__check((*fd)[1]);
 	(*fd)[0] = -1;
 	(*fd)[1] = -1;
-}
-
-void	fd_close(int *fd)
-{
-	px_close__check(fd[READ_END]);
-	px_close__check(fd[WRITE_END]);
 }

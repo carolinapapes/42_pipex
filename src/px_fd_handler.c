@@ -12,8 +12,9 @@
 
 #include <unistd.h>
 #include <stdlib.h>
-#include "px_fd.h"
-#include "px_types.h"
+#include "../include/px_fd.h"
+#include "../include/px_types.h"
+#include "../include/px_exit.h"
 
 static void	px_fd__init(int *fd_input, int *fd_output)
 {
@@ -30,15 +31,17 @@ static void	px_fd__close(int *fd_input, int *fd_output)
 // check dup2
 static void	px_fd__dup(int *fd_input, int *fd_output)
 {
-	dup2(fd_input[READ_END], STDIN_FILENO);
-	dup2(fd_output[WRITE_END], STDOUT_FILENO);
+	if (dup2(fd_input[READ_END], STDIN_FILENO) == -1)
+		px_exit("dup2", NULL, NULL);
+	if (dup2(fd_output[WRITE_END], STDOUT_FILENO) == -1)
+		px_exit("dup2", NULL, NULL);
 }
 
 // clean this exit
 static void	px_fd__error(int *fd_input, int *fd_output)
 {
-	if (fd_input[READ_END] == -1 || fd_output[WRITE_END] == -7)
-		exit(1);
+	if (fd_input[READ_END] == -1 || fd_output[WRITE_END] == -1)
+		px_perror("pipe");
 }
 
 // Check exits in the code - if this exits as 1, what should happen in main?

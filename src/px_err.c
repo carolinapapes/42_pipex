@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex.h"
 #include "unistd.h"
 #include "../libs/libft/libft.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "px_types.h"
+#include "../include/px_types.h"
 
-char	*error_cmd_404(char *command)
+static char	*error__127(char *command)
 {
 	char	*error_message;
 	char	*error_message_2;
@@ -28,19 +28,24 @@ char	*error_cmd_404(char *command)
 	error_message_2 = ft_strdup(error_message);
 	if (!error_message_2)
 		return (free(error_message), command);
-	error_message = ft_strjoin(error_message, ": command not found\n");
+	error_message = ft_strjoin(error_message, "command not found\n");
 	if (!error_message)
 		return (free(error_message_2), command);
 	return (free(error_message_2), error_message);
 }
 
-char	*get_error(char *msg)
+static char	*get_error(char *msg)
 {
 	char	*error_message;
 	char	*error_message_2;
 
 	if (!msg)
+	{
+		error_message = ft_strdup(PROG_NAME);
+		if (!error_message)
+			return (PROG_NAME);
 		return (PROG_NAME);
+	}
 	error_message = ft_strjoin(PROG_NAME, ": ");
 	if (!error_message)
 		return (PROG_NAME);
@@ -53,7 +58,7 @@ char	*get_error(char *msg)
 	return (free(error_message_2), error_message);
 }
 
-void	perror_msg(char *msg)
+void	px_perror(char *msg)
 {
 	char	*error_message;
 
@@ -63,35 +68,8 @@ void	perror_msg(char *msg)
 	return ;
 }
 
-// void	perror_cmd_msg(char *msg)
-// {
-// 	char	*error_message;
-
-// 	error_message = get_error(msg);
-// 	error_message = error_cmd_404(error_message);
-// 	ft_putstr_fd(error_message, STDERR_FILENO);
-// 	free(error_message);
-// 	return ;
-// }
-
-
-
-
-// char	*error_cmd_is_dir(char *command)
-// {
-// 	char	*error_message;
-// 	char	*error_message_2;
-// 	char	*error_message_3;
-
-// 	error_message_3 = ft_strjoin(PROG_NAME, ": ");
-// 	if (!error_message_3 || !command)
-// 		return (": Is a directory\n");
-// 	error_message = ft_strjoin(command, ": ");
-// 	if (!error_message)
-// 		return (": Is a directory\n");
-// 	error_message_2 = ft_strjoin(error_message_3, error_message);
-// 	if (!error_message_2)
-// 		return (free(error_message), free(error_message_3), \
-// 			": Is a directory\n");
-// 	return (free(error_message), free(error_message_3), error_message_2);
-// }
+void px_perror__127(char *msg)
+{
+	ft_putstr_fd(get_error((error__127(msg))), 2);
+	return ;
+};

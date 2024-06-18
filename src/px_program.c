@@ -12,8 +12,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "px_exit.h"
-#include "px_types.h"
+#include "../include/px_exit.h"
+#include "../include/px_types.h"
 
 static void	cmds_allocate(t_program *program, int cmdc)
 {

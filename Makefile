@@ -1,10 +1,10 @@
 # Compiler and compiler flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -I./include
 SRC_DIR = ./src
 SRC = main.c \
 parser.c \
-pipex_err.c \
+px_err.c \
 px_exit.c \
 px_fd_handler.c \
 px_fd.c \
@@ -13,6 +13,7 @@ px_process__exec.c \
 px_process__fd.c \
 px_process__init.c \
 px_process__utils.c \
+px_process__wait.c \
 px_process.c \
 px_program.c \
 utils.c \

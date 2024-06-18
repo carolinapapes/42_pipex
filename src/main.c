@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "pipex.h"
-#include "px_fd.h"
-#include "px_program.h"
-#include "px_types.h"
-#include "px_exit.h"
-#include "px_process.h"
+#include "../include/pipex.h"
+#include "../include/px_fd.h"
+#include "../include/px_program.h"
+#include "../include/px_types.h"
+#include "../include/px_exit.h"
+#include "../include/px_process.h"
 
 int	main(int argc, char **argv, char **env)
 {

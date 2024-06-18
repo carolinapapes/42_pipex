@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "pipex.h"
-#include "px_fd.h"
-#include "px_types.h"
-#include "px_process.h"
+#include "../include/pipex.h"
+#include "../include/px_fd.h"
+#include "../include/px_types.h"
+#include "../include/px_process.h"
 #include <stdio.h>
 
 /**
@@ -37,23 +37,21 @@
  * ALLOCATED: program->cmdv, list, list->content(process);
  */
 
-int	px_process(t_program *program)
+void	px_process(t_program *program)
 {
 	char		**cmdv;
+
 
 	cmdv = program->cmdv;
 	while (cmdv[0])
 	{
 		px_process__init(program);
-		px_process__fd_open(program->list, program->fd_names, !cmdv[1]);
+		px_process__fd_open(program, !cmdv[1]);
 		px_process__fork(content(program->list), program);
 		if (!(content(program->list)->pid))
 			px_process__exec(program, cmdv[0]);
 		px_process__fd_close(program->list, program);
 		cmdv++;
 	}
-	ft_lstiter(program->list, (void *)px_process__wait);
-	return (0);
+	px_process__wait(program);
 }
-
-// remove input params from process

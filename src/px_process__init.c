@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include "px_process.h"
-#include "px_types.h"
-#include "px_exit.h"
-// must check list allocation malloc
+#include "../include/px_types.h"
+#include "../include/px_exit.h"
+
 
 static void	allocate(t_program *program, t_process **process)
 {
