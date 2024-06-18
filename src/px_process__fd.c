@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   px_fd_set.c                                        :+:      :+:    :+:   */
+/*   px_process__fd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:45:31 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/16 10:46:57 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/18 00:19:46 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ static void	output_set__last(t_process *current, char *file)
 {
 	current->output[WRITE_END] = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (current->output[WRITE_END] == -1)
+	{
 		perror_msg(file);
+		exit (1);
+	}
 	return ;
 }
 

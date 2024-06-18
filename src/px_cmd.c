@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 23:18:11 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/16 08:55:41 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/18 09:09:08 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include "px_types.h"
 #include "px_exit.h"
 #include <errno.h>
-
 
 static void	path__concat(char *name, char *partial_path, char **path, t_process *process)
 {
@@ -39,7 +38,7 @@ static void	paths__get(char *name, char **path, char **paths__arr, t_process *pr
 
 	i = -1;
 	path__concat(name, paths__arr[++i], path, process);
-	while (access(*path, R_OK) && paths__arr[++i])
+	while (access(*path, X_OK) && paths__arr[++i])
 	{
 		free(*path);
 		*path = NULL;
@@ -71,8 +70,26 @@ static void	cmd__path(t_process *process)
 }
 
 // close fds ?
+static char	(*limits(char *str, char separator))[2]
+{
+	char	*limits[2];
+
+	limits[0] = ft_strchr(str, separator);
+	if (limits[0]  && limits[0][1])
+		limits[1] = ft_strchr(limits[0] + 1, separator);
+	if (!limits[1])
+		return (NULL);
+	return (limits);
+}
+
 static void	cmd__arr(t_process *process, char separator)
 {
+	char (*limits__arr)[2];
+
+	limits__arr = limits(process->cmd_str, "'");
+	if (!limits__arr)
+		limits__arr = limits(process->cmd_str, '"');
+		
 	process->cmd->arr = ft_split(process->cmd_str, separator);
 	if (!(process->cmd->arr))
 		px_exit("ft_split", NULL, process);
