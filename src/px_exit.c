@@ -27,12 +27,9 @@ void	cmd__free(t_cmd *cmd)
 		return ;
 	if (cmd->arr)
 		ft_split__free(cmd->arr);
-	if (cmd->path)
-	{
-		free(cmd->path);
-		cmd->path = NULL;
-	}
 	cmd = NULL;
+	cmd->arr = NULL;
+	cmd->path = NULL;
 }
 
 void	process__free(t_process *process)
