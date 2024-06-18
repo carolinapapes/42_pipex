@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   px_fd_handlers.c                                   :+:      :+:    :+:   */
+/*   px_fd_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:21:52 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/15 01:43:03 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/17 21:51:03 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	px_fd__dup(int *fd_input, int *fd_output)
 // clean this exit
 static void	px_fd__error(int *fd_input, int *fd_output)
 {
-	if (fd_input[READ_END] == -1 || fd_output[WRITE_END] == -1)
+	if (fd_input[READ_END] == -1 || fd_output[WRITE_END] == -7)
 		exit(1);
 }
 

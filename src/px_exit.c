@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   px_process_utils.c                                 :+:      :+:    :+:   */
+/*   px_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:29:13 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/16 15:25:27 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/18 00:24:45 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "px_types.h"
 #include "px_program.h"
 #include <stdio.h>
-
+#include <errno.h>
 
 // move this function to utils or px_free file
 void	cmd__free(t_cmd *cmd)
@@ -46,7 +46,7 @@ void	program__free(t_program *program)
 {
 	if (!program)
 		return ;
-	if (program->cmdv )
+	if (program->cmdv)
 	{
 		free(program->cmdv);
 		program->cmdv = NULL;
@@ -56,13 +56,15 @@ void	program__free(t_program *program)
 	program->list = NULL;
 }
 
-
 void	px_exit(char *msg, t_program *program, t_process *process)
 {
-	perror_msg(msg);
+	if (errno == 13)
+		error_cmd_404(msg);
+	else
+		perror_msg(msg);
 	process__free(process);
 	program__free(program);
-	exit (1);
+	if (errno == 13)
+		exit (126);
+	exit (errno);
 }
-
-

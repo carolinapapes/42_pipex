@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:15:21 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/16 17:11:18 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/18 00:19:01 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <stdlib.h>
 #include "px_exit.h"
 #include "px_types.h"
-
-
 
 static void	cmds_allocate(t_program *program, int cmdc)
 {
@@ -47,7 +45,7 @@ static void	initialize(t_program *program, char **argv, int argc, char **env)
 	* @brief: Program will handle all the validated inputs from main and 
 	* will assign them to the pipex program struct.
 	*
-	* @description: The first and last variables are the file names that will be used as i/o.
+	* @description: The first&&last variables are the file names.
 	* They will assigened to the program struct as fd_names. 
 	* The argv and argc arguments will be changed to the parameters needed.
 	* The enviroment will be the same as the one that the program is running.

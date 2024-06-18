@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:37:37 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/13 23:33:44 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/18 00:23:46 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 
 # include "px_types.h"
 
-
 void		px_validate_input(int argc, char **argv);
-void        px_cmd(t_process *process, char **env);
+void		px_cmd(t_process *process, char **env);
 void		perror_msg(char *msg);
+char	*error_cmd_404(char *command);
 int			process_child(int *fd_input, int *fd_output, char *command, char **env);
 void		fd_close(int *fd);
 char const	*ft_str__find(char **env, char *key);
