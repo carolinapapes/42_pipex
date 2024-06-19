@@ -30,7 +30,6 @@ static void	input_set(t_list *list, t_process *current)
 
 static void	input_set__first(t_process *current, char *file)
 {
-	printf("infile: %d %d\n", current->input[0], current->input[1]);
 	current->input[READ_END] = open(file, O_RDONLY);
 	if (current->input[READ_END] == -1)
 		px_perror(file);
@@ -40,13 +39,11 @@ static void	output_set(t_process *current, t_program *program)
 {
 	if (pipe(current->output) < 0)
 		px_exit("pipe", program, NULL);
-	printf("pipe: %d %d\n", current->output[0], current->output[1]);
 }
 
 static void	output_set__last(t_process *current, char *file, t_program *program)
 {
 	current->output[WRITE_END] = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	printf("outfile: %d %d\n", current->output[0], current->output[1]);
 	if (current->output[WRITE_END] == -1)
 		px_exit(file, program, NULL);
 	return ;
@@ -56,7 +53,7 @@ void	px_process__fd_open(t_program *program, int is_last)
 {
 	t_process	*current;
 
-	current = content(program->list);
+	current = content(program);
 	if (program->list->next)
 		input_set((t_list *)program->list, current);
 	else
@@ -69,7 +66,7 @@ void	px_process__fd_open(t_program *program, int is_last)
 
 void	px_process__fd_close(t_program *program)
 {
-	px_close__full(get_fd(program, FT_FD_INPUT));
+	px_close__full(get_fd(program, FT_FD_INPUT), program, NULL);
 	if (is_lastcmdv(program))
-		px_close__full(get_fd(program, FT_FD_OUTPUT));
+		px_close__full(get_fd(program, FT_FD_OUTPUT), program, NULL);
 }

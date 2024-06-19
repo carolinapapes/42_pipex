@@ -30,7 +30,7 @@ void	px_program__exec(t_program *program)
 	{
 		px_process__init(program);
 		px_process__fd_open(program, !cmdv[1]);
-		px_process__fork(content(program->list), program);
+		px_process__fork(content(program), program);
 		if (is_child(program))
 			px_process__exec(program, cmdv[0]);
 		px_process__fd_close(program);

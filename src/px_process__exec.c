@@ -19,7 +19,7 @@
 
 void	exec__clean( t_process **process, t_program **program, char *cmd)
 {
-	*process = content((*program)->list);
+	*process = content(*program);
 	(*program)->list->content = NULL;
 	(*process)->cmd = NULL;
 	(*process)->cmd_str = cmd;

@@ -16,20 +16,19 @@
 #include "../include/px_exit.h"
 #include <stdio.h>
 
-void	px_close__check(int fd)
+void	px_close__check(int fd, t_program *program, t_process *process)
 {
 	if (fd < 0)
 		return ;
-	printf("closing fd = %d\n", fd);
 	if (close(fd) == -1)
-		px_perror("close");
+		px_exit("close", program, process);
 	return ;
 }
 
-void	px_close__full(int (*fd)[2])
+void	px_close__full(int (*fd)[2], t_program *program, t_process *process)
 {
-	px_close__check((*fd)[0]);
-	px_close__check((*fd)[1]);
+	px_close__check((*fd)[0], program, process);
+	px_close__check((*fd)[1], program, process);
 	(*fd)[0] = -1;
 	(*fd)[1] = -1;
 }

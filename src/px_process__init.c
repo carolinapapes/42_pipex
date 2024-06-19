@@ -55,6 +55,5 @@ void	px_process__init(t_program *program)
 	allocate(program, &process);
 	initialize(process);
 	lstadd(program, &process);
-	printf("process: %d %d\n", ((t_process *)((program->list->content)))->input[0], process->input[0]);
 	return ;
 }

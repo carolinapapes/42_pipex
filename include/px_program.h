@@ -23,6 +23,6 @@ void    px_program__free(t_program *program);
 int     is_lastcmdv(t_program *program);
 int     (*get_fd(t_program *program, int fd))[2];
 int     is_child(t_program *program);
-t_process	*content(t_list *list);
+t_process	*content(t_program *program);
 
 #endif

@@ -18,7 +18,7 @@ void	px_process__wait(t_program *program)
 	int			exit_status;
 	t_process 	*process;
 
-	process = content(program->list);
+	process = content(program);
 	program->list->content = NULL;
 	ft_lstiter(program->list, (void *)wait__check);
 	waitpid(process->pid, &status, 0);

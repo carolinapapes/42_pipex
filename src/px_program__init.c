@@ -44,7 +44,6 @@ static void	initialize(t_program *program, char **argv, int argc, char **env)
 
 /**
 	* @brief handles all the validated inputs and add them to program struct.
-	* @bug env is null -> what should happen?
 	* @note Allocates memory for cmdv (the first pointer). Exits if allocation fails.
 */
 void	px_program__init(t_program *program, int argc, char **argv, char **env)

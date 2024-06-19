@@ -86,12 +86,14 @@ static void	cmd__path(t_process *process)
 	t_cmd		*cmd;
 
 	cmd = process->cmd;
+	if (!cmd->arr[0])
+		px_exit__127("", NULL, NULL);
 	cmd->path = NULL;
 	if (is_path(cmd->arr[0], &cmd->path, process))
 		return ;
 	paths__str = ft_str__find(cmd->env, "PATH=");
-	if (!paths__str)
-		px_exit(cmd->arr[0], NULL, process);
+	if (!paths__str || !*paths__str)
+		px_exit__127(cmd->arr[0], NULL, process);
 	paths__arr = ft_split(paths__str, ':');
 	if (!paths__arr)
 		px_exit("cmd_path", NULL, process);
