@@ -70,6 +70,12 @@ void	px_perror(char *msg)
 
 void px_perror__127(char *msg)
 {
-	ft_putstr_fd(get_error((error__127(msg))), 2);
+	char *error_message;
+	char *tmp;
+
+	tmp = error__127(msg);
+	error_message = get_error(tmp);
+	ft_putstr_fd(error_message, 2);
+	free(error_message);
 	return ;
 };
