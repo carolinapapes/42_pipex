@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   px_process__fd.c                                   :+:      :+:    :+:   */
+/*   px_process__fd_open.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:45:31 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/19 14:52:00 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/19 22:34:57 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "../include/px_exit.h"
 #include "../include/px_process.h"
 #include "../include/px_program.h"
-#include <stdio.h>	
 
 static void	input_set(t_list *list, t_process *current)
 {
@@ -62,11 +61,4 @@ void	px_process__fd_open(t_program *program, int is_last)
 		output_set(current, program);
 	else
 		output_set__last(current, (program->fd_names)[WRITE_END], program);
-}
-
-void	px_process__fd_close(t_program *program)
-{
-	px_close__full(get_fd(program, FT_FD_INPUT), program, NULL);
-	if (is_lastcmdv(program))
-		px_close__full(get_fd(program, FT_FD_OUTPUT), program, NULL);
 }

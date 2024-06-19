@@ -1,0 +1,14 @@
+Makefile
+build
+empty_dir
+include
+infile
+libs
+out
+outfil
+outfile
+pipex
+src
+subject.pdf
+test.c
+valgrind-out.txt

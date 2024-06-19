@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   px_process__wait.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/19 22:13:16 by carolinapap       #+#    #+#             */
+/*   Updated: 2024/06/19 22:13:18 by carolinapap      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/px_types.h"
 #include "../include/px_process.h"
@@ -16,7 +26,7 @@ void	px_process__wait(t_program *program)
 {
 	int			status;
 	int			exit_status;
-	t_process 	*process;
+	t_process	*process;
 
 	process = content(program);
 	program->list->content = NULL;

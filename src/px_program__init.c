@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   px_program.c                                       :+:      :+:    :+:   */
+/*   px_program__init.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:15:21 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/18 00:19:01 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/19 22:12:56 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	initialize(t_program *program, char **argv, int argc, char **env)
 
 /**
 	* @brief handles all the validated inputs and add them to program struct.
-	* @note Allocates memory for cmdv (the first pointer). Exits if allocation fails.
+	* @note Allocates memory for cmdv (the first pointer). Exits if fails.
 */
 void	px_program__init(t_program *program, int argc, char **argv, char **env)
 {

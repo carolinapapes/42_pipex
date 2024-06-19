@@ -6,12 +6,13 @@ SRC = main.c \
 parser.c \
 px_err.c \
 px_exit.c \
-px_fd_handler.c \
 px_fd.c \
+px_cmd__fd.c \
 px_free.c \
 px_cmd.c \
 px_process__exec.c \
-px_process__fd.c \
+px_process__fd_open.c \
+px_process__fd_close.c \
 px_process__fork.c \
 px_process__init.c \
 px_process__wait.c \

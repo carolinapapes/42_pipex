@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   px_fd.c                                            :+:      :+:    :+:   */
+/*   px_process__fd_close.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 22:37:59 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/19 21:58:38 by carolinapap      ###   ########.fr       */
+/*   Created: 2024/06/19 22:33:47 by carolinapap       #+#    #+#             */
+/*   Updated: 2024/06/19 22:35:21 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "../include/px_fd.h"
 #include "../include/px_types.h"
-#include "../include/pipex.h"
-#include "../include/px_exit.h"
-#include <stdio.h>
+#include "../include/px_process.h"
+#include "../include/px_program.h"
 
-void	px_close__check(int *fd, t_program *program, t_process *process)
+void	px_process__fd_close(t_program *program)
 {
-	if (*fd < 0)
-		return ;
-	if (close(*fd) == -1)
-		px_exit("close", program, process);
-	*fd = -1;
-}
-
-void	px_close__full(int (*fd)[2], t_program *program, t_process *process)
-{
-	px_close__check(&(*fd)[0], program, process);
-	px_close__check(&(*fd)[1], program, process);
+	px_close__full(get_fd(program, FT_FD_INPUT), program, NULL);
+	if (is_lastcmdv(program))
+		px_close__full(get_fd(program, FT_FD_OUTPUT), program, NULL);
 }

@@ -6,14 +6,13 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:09:09 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/19 14:51:21 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/19 22:13:26 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/px_types.h"
 #include "../include/px_exit.h"
 #include <stdio.h>
-
 
 static void	allocate(t_program *program, t_process **process)
 {

@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 23:18:11 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/18 23:01:04 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/19 22:38:07 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <fcntl.h>
 #include "../include/pipex.h"
 #include "../include/px_types.h"
+#include "../include/px_process.h"
 #include "../include/px_exit.h"
 
 static	void	is_dir(char *name, t_process *process)
@@ -86,8 +87,6 @@ static void	cmd__path(t_process *process)
 	t_cmd		*cmd;
 
 	cmd = process->cmd;
-	if (!cmd->arr[0])
-		px_exit__127("", NULL, NULL);
 	cmd->path = NULL;
 	if (is_path(cmd->arr[0], &cmd->path, process))
 		return ;
@@ -106,6 +105,8 @@ static void	cmd__arr(t_process *process, char separator)
 	process->cmd->arr = ft_split(process->cmd_str, separator);
 	if (!(process->cmd->arr))
 		px_exit("ft_split", NULL, process);
+	if (!process->cmd->arr[0])
+		px_exit__127("", NULL, NULL);
 }
 
 static void	px_cmd__init(t_process *process, char **env)
@@ -115,14 +116,26 @@ static void	px_cmd__init(t_process *process, char **env)
 	cmd__arr(process, ' ');
 	cmd__path(process);
 }
+// void	get_safe_cmd(t_process *process, char **env)
+// {
+// 	char	*cmd_str;
+
+// 	cmd_str = ft_strjoin("bash -c ", process->cmd_str);
+// 	cmd__free(process->cmd);
+// 	process->cmd_str = cmd_str;
+// 	px_cmd(process, env);
+// 	free(cmd_str);
+// }
 
 void	px_cmd(t_process *process, char **env)
 {
 	t_cmd	cmd;
 
 	process->cmd = &cmd;
+	px_cmd__fd(process, FT_FD_OPEN);
 	px_cmd__init(process, env);
 	execve(cmd.path, cmd.arr, env);
+	px_cmd__fd(process, FT_FD_CLOSE);
 	px_exit__126(cmd.path, NULL, process);
 }
 

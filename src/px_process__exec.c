@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 00:17:20 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/18 21:35:22 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/19 22:15:24 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	px_process__exec(t_program *program, char *cmd)
 	t_process	*process;
 
 	exec__clean(&process, &program, cmd);
-	px_fd__handler(process, FT_FD_OPEN);
+	px_cmd__fd(process, FT_FD_OPEN);
 	px_cmd(process, program->env);
-	px_fd__handler(process, FT_FD_CLOSE);
+	px_cmd__fd(process, FT_FD_CLOSE);
 	px_exit(cmd, program, process);
 }

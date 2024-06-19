@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   px_free.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/19 22:14:03 by carolinapap       #+#    #+#             */
+/*   Updated: 2024/06/19 22:14:05 by carolinapap      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/wait.h>
@@ -9,7 +21,7 @@
 #include <stdio.h>
 #include <errno.h>
 
-static void	cmd__free(t_cmd *cmd)
+void	cmd__free(t_cmd *cmd)
 {
 	if (!cmd)
 		return ;
