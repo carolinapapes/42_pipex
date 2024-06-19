@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:15:47 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/18 00:19:10 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/18 23:24:18 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@
 # define FT_FD_DUP 4
 # define FT_FD_ERROR 2
 # define FT_FD_INIT 1
+// equal ro dup + error + init
+# define FT_FD_OPEN 7
+
+# define FT_FD_INPUT 1
+# define FT_FD_OUTPUT 2
 
 # define PROG_NAME "pipex"
 

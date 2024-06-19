@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   px_fd.h                                            :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 22:34:56 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/18 21:34:30 by carolinapap      ###   ########.fr       */
+/*   Created: 2024/06/18 21:12:20 by carolinapap       #+#    #+#             */
+/*   Updated: 2024/06/18 21:19:36 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PX_FD_H
-# define PX_FD_H
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
-# include "../include/px_types.h"
+// char (*test)[1]
+// {
+// 	char (*test)[1] = malloc(1);
+// 	if (!test)
+// 		return (NULL);
+// 	test[0][0] = 'sh -c ./pipex infile cmd1 cmd2 outfile';
+// 	return (test);
+// }
 
-void	px_fd__handler(t_process *process, int code);
-void	px_close__check(int fd);
-void	px_close__full(int (*fd)[2]);
-
-#endif
+// int main(void)
+// {
+// 	execl("/bin/bash", "bash", "-c", "./pipex infil cmd1 cmd2 outfile", NULL);
+// 	return (0);
+// }

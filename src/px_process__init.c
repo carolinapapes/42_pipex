@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   px_process.c                                       :+:      :+:    :+:   */
+/*   px_process__init.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:09:09 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/16 17:06:50 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/19 14:51:21 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ static void	lstadd(t_program *program, t_process **process)
  * @brief Create a new process and add it to the list. 
  * If  allocation fails, the program will exit.
  * 
- * 
- * @param list			Pointer to list of processes, 
- * if dont exist will be created.
- * @param program		Pointer to program for exit propourses.
+ * @param program The program structure that contains the list of processes.
  * 
  * ALLOCATED: program. list, process
  * EXIT ON: process allocation failed, item allocation failed

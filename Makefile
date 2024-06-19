@@ -8,6 +8,7 @@ px_err.c \
 px_exit.c \
 px_fd_handler.c \
 px_fd.c \
+px_free.c \
 px_cmd.c \
 px_process__exec.c \
 px_process__fd.c \

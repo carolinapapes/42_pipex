@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 00:18:28 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/18 00:18:30 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/18 22:43:06 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	px_process__fork(t_process *process, t_program *program)
 	if (process->pid == -1)
 		px_exit("fork", program, process);
 }
-
-
 
 t_process	*content(t_list *lst)
 {

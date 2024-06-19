@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:45:31 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/18 00:19:46 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/19 14:52:00 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "../include/px_types.h"
 #include "../include/px_exit.h"
 #include "../include/px_process.h"
-
 
 static void	input_set(t_list *list, t_process *current)
 {
@@ -31,8 +30,7 @@ static void	input_set__first(t_process *current, char *file)
 {
 	current->input[READ_END] = open(file, O_RDONLY);
 	if (current->input[READ_END] == -1)
-		px_exit(file, NULL, current);
-
+		px_perror(file);
 }
 
 static void	output_set(t_process *current, t_program *program)
@@ -47,6 +45,15 @@ static void	output_set__last(t_process *current, char *file, t_program *program)
 	if (current->output[WRITE_END] == -1)
 		px_exit(file, program, NULL);
 	return ;
+}
+
+int	(*get_fd(t_program *program, int fd))[2]
+{
+	if (fd == FT_FD_INPUT)
+		return (&(content(program->list)->input));
+	if (fd == FT_FD_OUTPUT)
+		return (&(content(program->list)->output));
+	return (NULL);
 }
 
 void	px_process__fd_open(t_program *program, int is_last)
@@ -64,9 +71,14 @@ void	px_process__fd_open(t_program *program, int is_last)
 		output_set__last(current, (program->fd_names)[WRITE_END], program);
 }
 
-void	px_process__fd_close(t_list *list, t_program *program)
+int	is_lastcmdv(t_program *program)
 {
-	px_close__full(&(content(list)->input));
-	if (!(program->cmdv[1]))
-		px_close__full(&content(list)->output);
+	return (!(program->cmdv[1]));
+}
+
+void	px_process__fd_close(t_program *program)
+{
+	px_close__full(get_fd(program, FT_FD_INPUT));
+	if (is_lastcmdv(program))
+		px_close__full(get_fd(program, FT_FD_OUTPUT));
 }

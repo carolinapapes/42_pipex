@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 00:17:20 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/18 00:17:21 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/18 21:35:22 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "../include/px_types.h"
 #include "../include/px_process.h"
 
-void	px_exec__clean( t_process **process, t_program **program, char *cmd)
+void	exec__clean( t_process **process, t_program **program, char *cmd)
 {
 	*process = content((*program)->list);
 	(*program)->list->content = NULL;
@@ -30,10 +30,9 @@ void	px_process__exec(t_program *program, char *cmd)
 {
 	t_process	*process;
 
-	px_exec__clean(&process, &program, cmd);
-	px_fd__handler(process->input, process->output, FT_FD_INIT | FT_FD_DUP);
-//	if (process->input[READ_END] >= 0 && process->output[WRITE_END] >= 0)
+	exec__clean(&process, &program, cmd);
+	px_fd__handler(process, FT_FD_OPEN);
 	px_cmd(process, program->env);
-	px_fd__handler(process->input, process->output, FT_FD_CLOSE);
+	px_fd__handler(process, FT_FD_CLOSE);
 	px_exit(cmd, program, process);
 }

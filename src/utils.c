@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 21:30:29 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/15 01:39:05 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/18 22:43:20 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,18 @@ void	ft_split__free(char **strs)
 		free(strs);
 	strs = NULL;
 	return ;
+}
+
+void	ft_lst__free(void *content)
+{
+	if (content)
+		free(content);
+	content = NULL;
+}
+
+void	ft_free(void *content)
+{
+	if (content)
+		free(content);
+	content = NULL;
 }

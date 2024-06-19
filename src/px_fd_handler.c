@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:21:52 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/17 21:51:03 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/18 22:38:55 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static void	px_fd__close(int *fd_input, int *fd_output)
 // check dup2
 static void	px_fd__dup(int *fd_input, int *fd_output)
 {
-	if (dup2(fd_input[READ_END], STDIN_FILENO) == -1)
+	if (fd_input[READ_END] > -1 && dup2(fd_input[READ_END], STDIN_FILENO) == -1)
 		px_exit("dup2", NULL, NULL);
-	if (dup2(fd_output[WRITE_END], STDOUT_FILENO) == -1)
+	if (fd_output[WRITE_END] > -1 && dup2(fd_output[WRITE_END], STDOUT_FILENO) == -1)
 		px_exit("dup2", NULL, NULL);
 }
 
@@ -41,11 +41,11 @@ static void	px_fd__dup(int *fd_input, int *fd_output)
 static void	px_fd__error(int *fd_input, int *fd_output)
 {
 	if (fd_input[READ_END] == -1 || fd_output[WRITE_END] == -1)
-		px_perror("pipe");
+		exit(1);
 }
 
 // Check exits in the code - if this exits as 1, what should happen in main?
-void	px_fd__handler(int *fd_input, int *fd_output, int code)
+void	fd__handler(int *fd_input, int *fd_output, int code)
 {
 	if (code & FT_FD_INIT)
 		px_fd__init(fd_input, fd_output);
@@ -55,4 +55,9 @@ void	px_fd__handler(int *fd_input, int *fd_output, int code)
 		px_fd__dup(fd_input, fd_output);
 	if (code & FT_FD_CLOSE)
 		px_fd__close(fd_input, fd_output);
+}
+
+void	px_fd__handler(t_process *process, int code)
+{
+	fd__handler(process->input, process->output, code);
 }

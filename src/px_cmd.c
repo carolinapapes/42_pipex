@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 23:18:11 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/18 09:09:08 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/18 23:01:04 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,29 @@
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
+#include <fcntl.h>
 #include "../include/pipex.h"
 #include "../include/px_types.h"
 #include "../include/px_exit.h"
 
+static	void	is_dir(char *name, t_process *process)
+{
+	int			fd;
 
-static char *is_path(char *name, char **path, t_process *process)
+	fd = open(name, O_DIRECTORY);
+	if (fd == -1)
+		return ;
+	close(fd);
+	if (errno == EINVAL)
+		errno = EISDIR;
+	px_exit(name, NULL, process);
+}
+
+static char	*is_path(char *name, char **path, t_process *process)
 {
 	if (ft_strchr(name, '/'))
 	{
+		is_dir(name, process);
 		*path = ft_strdup(name);
 		if (!*path)
 			px_exit("paths__get ft_strdup failed", NULL, process);
@@ -49,7 +63,6 @@ static void	paths__get(char *name, char **path, char **paths__arr, t_process *pr
 	int			i;
 
 	i = -1;
-
 	path__concat(name, paths__arr[++i], path, process);
 	while (access(*path, X_OK) && paths__arr[++i])
 	{
@@ -58,7 +71,9 @@ static void	paths__get(char *name, char **path, char **paths__arr, t_process *pr
 		path__concat(name, paths__arr[i], path, process);
 	}
 	if (paths__arr[i])
+	{
 		return ;
+	}
 	free(*path);
 	*path = NULL;
 	px_exit__127(name, NULL, process);
@@ -84,7 +99,6 @@ static void	cmd__path(t_process *process)
 	ft_split__free(paths__arr);
 }
 
-
 static void	cmd__arr(t_process *process, char separator)
 {
 	process->cmd->arr = ft_split(process->cmd_str, separator);
@@ -109,7 +123,6 @@ void	px_cmd(t_process *process, char **env)
 	execve(cmd.path, cmd.arr, env);
 	px_exit__126(cmd.path, NULL, process);
 }
-
 
 // //find pair of quotes
 // static char	(*limits(char *str, char separator))[2]
