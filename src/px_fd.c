@@ -14,11 +14,13 @@
 #include "../include/px_types.h"
 #include "../include/pipex.h"
 #include "../include/px_exit.h"
+#include <stdio.h>
 
 void	px_close__check(int fd)
 {
 	if (fd < 0)
 		return ;
+	printf("closing fd = %d\n", fd);
 	if (close(fd) == -1)
 		px_perror("close");
 	return ;

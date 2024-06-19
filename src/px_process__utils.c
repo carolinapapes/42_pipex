@@ -20,8 +20,3 @@ void	px_process__fork(t_process *process, t_program *program)
 	if (process->pid == -1)
 		px_exit("fork", program, process);
 }
-
-t_process	*content(t_list *lst)
-{
-	return ((t_process *)lst->content);
-}

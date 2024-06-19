@@ -15,6 +15,7 @@
 #include "../include/px_fd.h"
 #include "../include/px_types.h"
 #include "../include/px_process.h"
+#include "../include/px_program.h"
 
 void	exec__clean( t_process **process, t_program **program, char *cmd)
 {
@@ -22,10 +23,9 @@ void	exec__clean( t_process **process, t_program **program, char *cmd)
 	(*program)->list->content = NULL;
 	(*process)->cmd = NULL;
 	(*process)->cmd_str = cmd;
-	program__free(*program);
+	px_program__free(*program);
 }
 
-// void	px_child(t_process *process, char *command, char **env)
 void	px_process__exec(t_program *program, char *cmd)
 {
 	t_process	*process;

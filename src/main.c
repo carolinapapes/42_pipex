@@ -23,8 +23,8 @@ int	main(int argc, char **argv, char **env)
 	t_program	program;
 
 	px_validate_input(argc, argv);
-	px_program(&program, argc, argv, env);
-	px_process(&program);
-	program__free(&program);
+	px_program__init(&program, argc, argv, env);
+	px_program__exec(&program);
+	px_program__free(&program);
 	return (0);
 }

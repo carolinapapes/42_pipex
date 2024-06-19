@@ -15,8 +15,9 @@ px_process__fd.c \
 px_process__init.c \
 px_process__utils.c \
 px_process__wait.c \
-px_process.c \
-px_program.c \
+px_program__init.c \
+px_program__exec.c \
+px_program__utils.c \
 utils.c \
 
 BUILD_DIR = ./build

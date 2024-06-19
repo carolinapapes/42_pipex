@@ -29,7 +29,7 @@ static void	process__free(t_process *process)
 	process = NULL;
 }
 
-void	program__free(t_program *program)
+void	px_program__free(t_program *program)
 {
 	if (!program)
 		return ;
@@ -43,5 +43,5 @@ void	program__free(t_program *program)
 void	px_free(t_program *program, t_process *process)
 {
 	process__free(process);
-	program__free(program);
+	px_program__free(program);
 }

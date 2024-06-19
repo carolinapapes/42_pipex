@@ -3,6 +3,7 @@
 #include "../include/px_types.h"
 #include "../include/px_process.h"
 #include "../include/px_exit.h"
+#include "../include/px_program.h"
 #include <sys/wait.h>
 
 static void	wait__check(t_process *process)

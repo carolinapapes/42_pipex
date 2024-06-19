@@ -15,34 +15,13 @@
 #include "../include/px_fd.h"
 #include "../include/px_types.h"
 #include "../include/px_process.h"
+#include "../include/px_program.h"
 #include <stdio.h>
 
 /**
- * BRIEF: Executes the commands in the program
- * 
- * Each iteration will:
- * create a process
- * open FDs (pipes or files)
- * fork the process
- * in child process:
- * 	 execute the comand
- * in parente process:
- * 	 close the pipes
- * 	 wait for the child process to finish
- *	 free the process
- * 
- * @param program: The program to be executed
- * @return int: 0 if the program was executed successfully
- * 
- * ALLOCATED: program->cmdv, list, list->content(process);
+ * @brief Launch all process and wait for them to finish
  */
-
-int	is_child(t_program *program)
-{
-	return (!(content(program->list)->pid));
-}
-
-void	px_process(t_program *program)
+void	px_program__exec(t_program *program)
 {
 	char		**cmdv;
 

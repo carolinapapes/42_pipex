@@ -41,13 +41,6 @@ void	ft_split__free(char **strs)
 	return ;
 }
 
-void	ft_lst__free(void *content)
-{
-	if (content)
-		free(content);
-	content = NULL;
-}
-
 void	ft_free(void *content)
 {
 	if (content)
