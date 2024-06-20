@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 23:09:09 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/19 22:13:26 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/19 23:38:03 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	initialize(t_process *process)
 	process->input[1] = -1;
 	process->output[0] = -1;
 	process->output[1] = -1;
-	process->cmd = NULL;
 	return ;
 }
 

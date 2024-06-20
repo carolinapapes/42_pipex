@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:14:03 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/19 22:14:05 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/20 01:19:06 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ static void	process__free(t_process *process)
 {
 	if (!process)
 		return ;
-	if (process->cmd)
-		cmd__free(process->cmd);
 	free(process);
 	process = NULL;
 }
