@@ -18,5 +18,5 @@ void	px_process__fork(t_process *process, t_program *program)
 {
 	process->pid = fork();
 	if (process->pid == -1)
-		px_exit("fork", program, process);
+		px_exit("fork", program);
 }

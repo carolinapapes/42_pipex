@@ -18,7 +18,7 @@ static void	allocate(t_program *program, t_process **process)
 {
 	*process = (t_process *)malloc(sizeof(t_process));
 	if (!(*process))
-		px_exit("process allocation", program, NULL);
+		px_exit("process allocation", program);
 }
 
 static void	initialize(t_process *process)
@@ -37,7 +37,7 @@ static void	lstadd(t_program *program, t_process **process)
 
 	item = ft_lstnew((void *)(*process));
 	if (!item)
-		px_exit("list item allocation", program, *process);
+		px_exit("list item allocation", program);
 	ft_lstadd_front(&program->list, item);
 }
 

@@ -29,6 +29,9 @@ void	px_cmd__initialize(t_cmd *cmd, t_program *program, char *cmdname)
 	cmd->output[1] = process->output[1];
 	cmd->env = program->env;
 	cmd->str = cmdname;
+	cmd->path = NULL;
+	cmd->arr = NULL;
+	cmd->possible_paths = NULL;
 }
 
 void	px_process__exec(t_program *program, char *cmdname)
@@ -38,5 +41,5 @@ void	px_process__exec(t_program *program, char *cmdname)
 	px_cmd__initialize(&cmd, program, cmdname);
 	px_program__free(program);
 	px_cmd__exec(&cmd);
-	px_exit(cmdname, NULL, NULL);
+	px_exit(cmdname, NULL);
 }

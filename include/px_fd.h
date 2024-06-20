@@ -16,6 +16,6 @@
 # include "../include/px_types.h"
 
 void	px_close__check(int *fd, t_program *program, t_process *process);
-void	px_close__full(int (*fd)[2], t_program *program, t_process *process);
+void	px_close__full(int fd[2], t_program *program, t_process *process);
 
 #endif

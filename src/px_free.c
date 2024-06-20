@@ -29,9 +29,11 @@ void	cmd__free(t_cmd *cmd)
 		ft_split__free(cmd->arr);
 	if (cmd->path)
 		ft_free(cmd->path);
+	if(cmd->possible_paths)
+		ft_split__free(cmd->possible_paths);
 }
 
-static void	process__free(t_process *process)
+void	process__free(t_process *process)
 {
 	if (!process)
 		return ;

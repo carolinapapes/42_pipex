@@ -23,5 +23,5 @@ void		px_validate_input(int argc, char **argv);
 void		px_cmd__fd(t_cmd *cmd, int code);
 void		is_dir(char *name);
 char		*is_path(char *name, char **path);
-
+void	    cmd__path(t_cmd *cmd);
 #endif

@@ -22,11 +22,7 @@
 # define FT_FD_DUP 4
 # define FT_FD_ERROR 2
 # define FT_FD_INIT 1
-// equal ro dup + error + init
 # define FT_FD_OPEN 7
-
-# define FT_FD_INPUT 1
-# define FT_FD_OUTPUT 2
 
 # define PROG_NAME "pipex"
 
@@ -37,6 +33,7 @@ typedef struct s_cmd
 	char	**arr;
 	char	**env;
 	char	*path;
+	char 	**possible_paths;
 	int		input[2];
 	int		output[2];
 	char	*str;
@@ -57,5 +54,7 @@ typedef struct s_program
 	char		*fd_names[2];
 	t_list		*list;
 }				t_program;
+
+t_process	*content(t_program *program);
 
 #endif

@@ -15,6 +15,7 @@
 		"px_program.h": "c",
 		"px_exit.h": "c",
 		"typeinfo": "c",
-		"px_fd.h": "c"
+		"px_fd.h": "c",
+		"errno.h": "c"
 	}
 }

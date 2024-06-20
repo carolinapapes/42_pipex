@@ -14,7 +14,13 @@
 #include "../include/pipex.h"
 #include <errno.h>
 #include <fcntl.h>
+#include <sys/types.h>
 #include "../include/px_exit.h"
+#include <stdio.h>
+
+#ifndef O_DIRECTORY
+#define O_DIRECTORY 0200000
+#endif
 
 char const	*ft_str__find(char **env, char *key)
 {
@@ -48,27 +54,31 @@ void	ft_split__free(char **strs)
 	return ;
 }
 
-void	is_dir(char *name)
-{
-	int			fd;
+// void	is_dir(char *name)
+// {
+// 	int			fd;
 
-	fd = open(name, O_DIRECTORY);
-	if (fd == -1)
-		return ;
-	close(fd);
-	if (errno == EINVAL)
-		errno = EISDIR;
-	px_exit(name, NULL, NULL);
-}
+// ft_putstr_fd("name: ", 2);
+
+// 	fd = open(name, O_DIRECTORY);
+// 	if (fd == -1)
+// 		return ;
+// 	ft_putstr_fd("name: ", 2);
+// 	close(fd);
+// 	printf("errno: %d\n", errno);
+// 	if (errno == EINVAL)
+// 		errno = EISDIR;
+// 	px_exit(name, NULL);
+// }
 
 char	*is_path(char *name, char **path)
 {
 	if (ft_strchr(name, '/'))
 	{
-		is_dir(name);
+		// is_dir(name);
 		*path = ft_strdup(name);
 		if (!*path)
-			px_exit("paths__get ft_strdup failed", NULL, NULL);
+			px_exit("paths__get ft_strdup failed", NULL);
 	}
 	return (*path);
 }

@@ -17,7 +17,7 @@
 
 void	px_process__fd_close(t_program *program)
 {
-	px_close__full(&content(program)->input, program, NULL);
+	px_close__full(content(program)->input, program, NULL);
 	if (is_lastcmdv(program))
-		px_close__full(&content(program)->output, program, NULL);
+		px_close__full(content(program)->input, program, NULL);
 }

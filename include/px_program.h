@@ -15,12 +15,10 @@
 # define PX_PROGRAM_H
 # include "px_types.h"
 
-void		px_program__init(t_program *program, int argc, char **argv, char **env);
-void		px_program__exec(t_program *program);
-void		px_program__free(t_program *program);
-int			is_lastcmdv(t_program *program);
-int			(*get_fd(t_program *program, int fd))[2];
-int			is_child(t_program *program);
-t_process	*content(t_program *program);
+int		is_lastcmdv(t_program *program);
+int		is_child(t_program *program);
+void	px_program__init(t_program *program, int argc, char **argv, char **env);
+void	px_program__exec(t_program *program);
+void	px_program__free(t_program *program);
 
 #endif

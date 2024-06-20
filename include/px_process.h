@@ -16,12 +16,12 @@
 # include "../libs/libft/libft.h"
 # include "px_types.h"
 
-void		px_process__init(t_program *program);
-void		px_process__fork(t_process *process, t_program *program);
-void		px_process__fd_open(t_program *program, int is_last);
-void		px_process__fd_close(t_program *program);
-void		px_process__wait(t_program *program);
-void		px_process__exec(t_program *program, char *cmd);
-void		cmd__free(t_cmd *cmd);
+void	px_process__init(t_program *program);
+void	px_process__fork(t_process *process, t_program *program);
+void	px_process__fd_open(t_program *program, int is_last);
+void	px_process__fd_close(t_program *program);
+void	px_process__wait(t_program *program);
+void	px_process__exec(t_program *program, char *cmd);
+void	cmd__free(t_cmd *cmd);
 
 #endif

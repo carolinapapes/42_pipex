@@ -30,9 +30,9 @@ static void	fd_close(int *input, int *output)
 static void	fd_dup(int *input, int *output)
 {
 	if (input[READ_END] > -1 && dup2(input[READ_END], STDIN_FILENO) == -1)
-		px_exit("dup2", NULL, NULL);
+		px_exit("dup2", NULL);
 	if (output[WRITE_END] > -1 && dup2(output[WRITE_END], STDOUT_FILENO) == -1)
-		px_exit("dup2", NULL, NULL);
+		px_exit("dup2", NULL);
 }
 
 static void	fd_error(int *input, int *output)

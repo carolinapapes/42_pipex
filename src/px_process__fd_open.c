@@ -16,6 +16,8 @@
 #include "../include/px_exit.h"
 #include "../include/px_process.h"
 #include "../include/px_program.h"
+#include <errno.h>
+#include <stdio.h>
 
 static void	input_set(t_list *list, t_process *current)
 {
@@ -37,14 +39,18 @@ static void	input_set__first(t_process *current, char *file)
 static void	output_set(t_process *current, t_program *program)
 {
 	if (pipe(current->output) < 0)
-		px_exit("pipe", program, NULL);
+		px_exit("pipe", program);
 }
 
 static void	output_set__last(t_process *current, char *file, t_program *program)
 {
 	current->output[WRITE_END] = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (current->output[WRITE_END] == -1)
-		px_exit(file, program, NULL);
+	{
+		px_perror(file);
+		px_free(program, NULL);
+		exit(1);
+	}
 	return ;
 }
 

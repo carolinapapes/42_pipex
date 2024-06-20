@@ -29,15 +29,6 @@ int	is_child(t_program *program)
 	return (!(content(program)->pid));
 }
 
-int	(*get_fd(t_program *program, int fd))[2]
-{
-	if (fd == FT_FD_INPUT)
-		return (&(content(program)->input));
-	if (fd == FT_FD_OUTPUT)
-		return (&(content(program)->output));
-	return (NULL);
-}
-
 int	is_lastcmdv(t_program *program)
 {
 	return (!(program->cmdv[1]));

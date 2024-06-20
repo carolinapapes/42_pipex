@@ -21,26 +21,36 @@
 #include <stdio.h>
 #include <errno.h>
 
-void	px_exit(char *msg, t_program *program, t_process *process)
+void	px_exit(char *msg, t_program *program)
 {
 	int	err;
 
 	err = errno;
 	px_perror(msg);
-	px_free(program, process);
+	px_free(program, NULL);
 	exit(err);
 }
 
-void	px_exit__127(char *msg, t_program *program, t_process *process)
+void   px_exit__cmd(char *msg, t_cmd *cmd)
+{
+	int	err;
+
+	err = errno;
+	px_perror(msg);
+	cmd__free(cmd);
+	exit(err);
+}
+
+void	px_exit__127(char *msg, t_cmd *cmd)
 {
 	px_perror__127(msg);
-	px_free(program, process);
+	cmd__free(cmd);
 	exit(127);
 }
 
-void	px_exit__126(char *msg, t_program *program, t_process *process)
+void	px_exit__126(char *msg, t_cmd *cmd)
 {
 	px_perror(msg);
-	px_free(program, process);
+	cmd__free(cmd);
 	exit(126);
 }

@@ -21,12 +21,15 @@ void	px_close__check(int *fd, t_program *program, t_process *process)
 	if (*fd < 0)
 		return ;
 	if (close(*fd) == -1)
-		px_exit("close", program, process);
+	{
+		process__free(process);
+		px_exit("close", program);
+	}
 	*fd = -1;
 }
 
-void	px_close__full(int (*fd)[2], t_program *program, t_process *process)
+void	px_close__full(int fd[2], t_program *program, t_process *process)
 {
-	px_close__check(&(*fd)[0], program, process);
-	px_close__check(&(*fd)[1], program, process);
+	px_close__check(&fd[0], program, process);
+	px_close__check(&fd[1], program, process);
 }
