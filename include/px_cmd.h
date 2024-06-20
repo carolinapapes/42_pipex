@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   px_cmd.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 21:55:16 by capapes           #+#    #+#             */
-/*   Updated: 2024/06/20 23:42:48 by carolinapap      ###   ########.fr       */
+/*   Created: 2024/06/20 23:39:15 by carolinapap       #+#    #+#             */
+/*   Updated: 2024/06/20 23:39:48 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "libft_bonus.h"
+#ifndef PX_CMD_H
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
-{
-	if (lst)
-	{
-		del(lst->content);
-		free(lst);
-	}
-}
+# define PX_CMD_H
+
+# include "px_types.h"
+
+void		px_cmd__exec(t_cmd *cmd);
+void		px_cmd__fd(t_cmd *cmd, int code);
+void		cmd__path(t_cmd *cmd);
+
+#endif

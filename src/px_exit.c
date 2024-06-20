@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:29:13 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/18 22:37:45 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/20 22:46:36 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	px_exit(char *msg, t_program *program)
 	exit(err);
 }
 
-void   px_exit__cmd(char *msg, t_cmd *cmd)
+void	px_exit__cmd(const char *msg, t_cmd *cmd)
 {
 	int	err;
 
 	err = errno;
-	px_perror(msg);
+	px_perror((char *)msg);
 	cmd__free(cmd);
 	exit(err);
 }

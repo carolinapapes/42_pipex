@@ -6,11 +6,12 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 00:24:44 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/20 00:24:49 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/20 23:43:30 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "libft_bonus.h"
 
 int	is_first_item(t_list *list)
 {

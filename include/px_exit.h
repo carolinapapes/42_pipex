@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 22:33:45 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/19 23:31:16 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/20 22:45:42 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	px_perror(char *msg);
 void	px_perror__127(char *msg);
 void	ft_free(void *content);
 void	process__free(t_process *process);
-void    px_exit__cmd(char *msg, t_cmd *cmd);
+void	px_exit__cmd(const char *msg, t_cmd *cmd);
 
 #endif

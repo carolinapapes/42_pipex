@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:15:47 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/19 23:41:56 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/20 23:44:39 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,17 @@
 
 # define PROG_NAME "pipex"
 
-# include "../libs/libft/libft.h"
+# include "../libs/libft/libft_bonus.h"
 
 typedef struct s_cmd
 {
 	char	**arr;
 	char	**env;
 	char	*path;
-	char 	**possible_paths;
+	char	**possible_paths;
 	int		input[2];
 	int		output[2];
 	char	*str;
-
 }	t_cmd;
 
 typedef struct s_process

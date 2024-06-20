@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 00:17:20 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/20 00:09:51 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/20 23:57:15 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../include/px_types.h"
 #include "../include/px_process.h"
 #include "../include/px_program.h"
+#include "../include/px_cmd.h"
 #include <stdio.h>
 
 void	px_cmd__initialize(t_cmd *cmd, t_program *program, char *cmdname)

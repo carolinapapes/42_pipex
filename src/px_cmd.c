@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 23:18:11 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/20 15:56:00 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/20 23:56:55 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,18 @@
 #include <stdio.h>
 #include <string.h>
 #include <fcntl.h>
+#include "../include/px_cmd.h"
 #include "../include/pipex.h"
 #include "../include/px_types.h"
 #include "../include/px_process.h"
 #include "../include/px_exit.h"
+#include "../include/libft_exp.h"
 
 static void	get__arr(t_cmd *cmd, char separator)
 {
 	cmd->arr = ft_split(cmd->str, separator);
 	if (!(cmd->arr))
-		px_exit__cmd("ft_split", cmd);
+		px_exit__cmd(who(__func__), cmd);
 	if (!cmd->arr[0])
 		px_exit__127("", cmd);
 }

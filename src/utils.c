@@ -6,17 +6,16 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 21:30:29 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/20 01:16:54 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/20 23:56:24 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libs/libft/libft.h"
-#include "../include/pipex.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <sys/types.h>
+#include "../libs/libft/libft.h"
+#include "../include/pipex.h"
 #include "../include/px_exit.h"
-#include <stdio.h>
 
 char const	*ft_str__find(char **env, char *key)
 {
@@ -55,11 +54,11 @@ void	is_dir(char *name)
 	int			fd;
 
 	fd = open(name, O_WRONLY);
-    if (fd == -1 && errno == EISDIR)
-            px_exit(name, NULL);
-    else if (fd != -1)
-        close(fd);
-    return ;
+	if (fd == -1 && errno == EISDIR)
+		px_exit(name, NULL);
+	else if (fd != -1)
+		close(fd);
+	return ;
 }
 
 char	*is_path(char *name, char **path)
@@ -72,4 +71,8 @@ char	*is_path(char *name, char **path)
 			px_exit("paths__get ft_strdup failed", NULL);
 	}
 	return (*path);
+}
+char	*who(const char *str)
+{
+	return ((char *)str);
 }

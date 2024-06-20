@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 22:34:31 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/20 22:41:18 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/20 23:55:41 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,10 @@
 #include <string.h>
 #include <fcntl.h>
 #include "../include/pipex.h"
+#include "../include/libft_exp.h"
 #include "../include/px_types.h"
 #include "../include/px_process.h"
 #include "../include/px_exit.h"
-
-char	*who(const char *str)
-{
-	return ((char *)str);
-}
 
 static void	path__concat(char *partial_path, t_cmd *cmd)
 {

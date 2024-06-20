@@ -6,11 +6,12 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:21:52 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/20 00:06:43 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/20 23:45:17 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdlib.h>
 #include "../include/px_fd.h"
 #include "../include/px_types.h"
 #include "../include/px_exit.h"
