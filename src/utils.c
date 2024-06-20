@@ -6,11 +6,15 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 21:30:29 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/18 22:43:20 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/20 01:16:54 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/libft/libft.h"
+#include "../include/pipex.h"
+#include <errno.h>
+#include <fcntl.h>
+#include "../include/px_exit.h"
 
 char const	*ft_str__find(char **env, char *key)
 {
@@ -25,25 +29,46 @@ char const	*ft_str__find(char **env, char *key)
 	return (NULL);
 }
 
+void	ft_free(void *content)
+{
+	if (content)
+		free(content);
+	content = NULL;
+}
+
 void	ft_split__free(char **strs)
 {
 	int	i;
 
 	i = -1;
 	while (strs && strs[++i])
-	{
-		free(strs[i]);
-		strs[i] = NULL;
-	}
+		ft_free(strs[i]);
 	if (strs)
-		free(strs);
-	strs = NULL;
+		ft_free(strs);
 	return ;
 }
 
-void	ft_free(void *content)
+void	is_dir(char *name)
 {
-	if (content)
-		free(content);
-	content = NULL;
+	int			fd;
+
+	fd = open(name, O_DIRECTORY);
+	if (fd == -1)
+		return ;
+	close(fd);
+	if (errno == EINVAL)
+		errno = EISDIR;
+	px_exit(name, NULL, NULL);
+}
+
+char	*is_path(char *name, char **path)
+{
+	if (ft_strchr(name, '/'))
+	{
+		is_dir(name);
+		*path = ft_strdup(name);
+		if (!*path)
+			px_exit("paths__get ft_strdup failed", NULL, NULL);
+	}
+	return (*path);
 }

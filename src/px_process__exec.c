@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 00:17:20 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/19 22:15:24 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/20 00:09:51 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,27 @@
 #include "../include/px_types.h"
 #include "../include/px_process.h"
 #include "../include/px_program.h"
+#include <stdio.h>
 
-void	exec__clean( t_process **process, t_program **program, char *cmd)
-{
-	*process = content(*program);
-	(*program)->list->content = NULL;
-	(*process)->cmd = NULL;
-	(*process)->cmd_str = cmd;
-	px_program__free(*program);
-}
-
-void	px_process__exec(t_program *program, char *cmd)
+void	px_cmd__initialize(t_cmd *cmd, t_program *program, char *cmdname)
 {
 	t_process	*process;
 
-	exec__clean(&process, &program, cmd);
-	px_cmd__fd(process, FT_FD_OPEN);
-	px_cmd(process, program->env);
-	px_cmd__fd(process, FT_FD_CLOSE);
-	px_exit(cmd, program, process);
+	process = content(program);
+	cmd->input[0] = process->input[0];
+	cmd->input[1] = process->input[1];
+	cmd->output[0] = process->output[0];
+	cmd->output[1] = process->output[1];
+	cmd->env = program->env;
+	cmd->str = cmdname;
+}
+
+void	px_process__exec(t_program *program, char *cmdname)
+{
+	t_cmd		cmd;
+
+	px_cmd__initialize(&cmd, program, cmdname);
+	px_program__free(program);
+	px_cmd__exec(&cmd);
+	px_exit(cmdname, NULL, NULL);
 }
