@@ -18,10 +18,6 @@
 #include "../include/px_exit.h"
 #include <stdio.h>
 
-#ifndef O_DIRECTORY
-#define O_DIRECTORY 0200000
-#endif
-
 char const	*ft_str__find(char **env, char *key)
 {
 	int	len;
@@ -54,28 +50,23 @@ void	ft_split__free(char **strs)
 	return ;
 }
 
-// void	is_dir(char *name)
-// {
-// 	int			fd;
+void	is_dir(char *name)
+{
+	int			fd;
 
-// ft_putstr_fd("name: ", 2);
-
-// 	fd = open(name, O_DIRECTORY);
-// 	if (fd == -1)
-// 		return ;
-// 	ft_putstr_fd("name: ", 2);
-// 	close(fd);
-// 	printf("errno: %d\n", errno);
-// 	if (errno == EINVAL)
-// 		errno = EISDIR;
-// 	px_exit(name, NULL);
-// }
+	fd = open(name, O_WRONLY);
+    if (fd == -1 && errno == EISDIR)
+            px_exit(name, NULL);
+    else if (fd != -1)
+        close(fd);
+    return ;
+}
 
 char	*is_path(char *name, char **path)
 {
 	if (ft_strchr(name, '/'))
 	{
-		// is_dir(name);
+		is_dir(name);
 		*path = ft_strdup(name);
 		if (!*path)
 			px_exit("paths__get ft_strdup failed", NULL);
