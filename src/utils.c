@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 21:30:29 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/20 23:56:24 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/21 00:08:30 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../libs/libft/libft.h"
 #include "../include/pipex.h"
 #include "../include/px_exit.h"
+#include "../include/libft_exp.h"
 
 char const	*ft_str__find(char **env, char *key)
 {
@@ -28,13 +29,6 @@ char const	*ft_str__find(char **env, char *key)
 		if (!ft_strncmp(env[i], key, len))
 			return ((char const *)(env[i] + len));
 	return (NULL);
-}
-
-void	ft_free(void *content)
-{
-	if (content)
-		free(content);
-	content = NULL;
 }
 
 void	ft_split__free(char **strs)
@@ -72,7 +66,10 @@ char	*is_path(char *name, char **path)
 	}
 	return (*path);
 }
-char	*who(const char *str)
+
+void	ft_free(void *content)
 {
-	return ((char *)str);
+	if (content)
+		free(content);
+	content = NULL;
 }

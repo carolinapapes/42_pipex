@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 22:29:13 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/20 22:46:36 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/21 00:08:10 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "../include/px_process.h"
 #include "../include/px_types.h"
 #include "../include/px_program.h"
+#include "../include/px_cmd.h"
 #include <stdio.h>
 #include <errno.h>
 

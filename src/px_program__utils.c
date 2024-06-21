@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 21:26:11 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/20 00:24:36 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/21 00:01:58 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,9 @@ int	is_child(t_program *program)
 int	is_lastcmdv(t_program *program)
 {
 	return (!(program->cmdv[1]));
+}
+
+char	*who(const char *str)
+{
+	return ((char *)str);
 }

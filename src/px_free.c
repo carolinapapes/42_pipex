@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 22:14:03 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/20 23:53:58 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/21 00:05:58 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	cmd__free(t_cmd *cmd)
 		ft_split__free(cmd->possible_paths);
 }
 
-void	process__free(t_process *process)
+void	px_process__free(t_process *process)
 {
 	if (!process)
 		return ;
@@ -48,12 +48,12 @@ void	px_program__free(t_program *program)
 	if (program->cmdv)
 		ft_free(program->cmdv);
 	if (program->list)
-		ft_lstclear(&(program->list), (void *)process__free);
+		ft_lstclear(&(program->list), (void *)px_process__free);
 	program->list = NULL;
 }
 
 void	px_free(t_program *program, t_process *process)
 {
-	process__free(process);
+	px_process__free(process);
 	px_program__free(program);
 }

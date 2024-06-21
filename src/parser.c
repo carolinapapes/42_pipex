@@ -6,11 +6,10 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 19:22:11 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/12 23:30:46 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/21 00:07:27 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "../libs/libft/libft.h"
 
 int	is_argc_valid(int argc)

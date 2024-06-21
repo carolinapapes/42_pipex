@@ -6,7 +6,7 @@
 /*   By: carolinapapes <carolinapapes@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 22:37:59 by carolinapap       #+#    #+#             */
-/*   Updated: 2024/06/19 21:58:38 by carolinapap      ###   ########.fr       */
+/*   Updated: 2024/06/21 00:05:58 by carolinapap      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	px_close__check(int *fd, t_program *program, t_process *process)
 		return ;
 	if (close(*fd) == -1)
 	{
-		process__free(process);
+		px_process__free(process);
 		px_exit("close", program);
 	}
 	*fd = -1;
