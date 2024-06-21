@@ -15,7 +15,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <fcntl.h>
-#include "../include/pipex.h"
 #include "../include/libft_exp.h"
 #include "../include/px_types.h"
 #include "../include/px_process.h"

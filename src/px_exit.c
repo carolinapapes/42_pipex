@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include "../include/px_exit.h"
-#include "../include/pipex.h"
 #include "../include/px_process.h"
 #include "../include/px_types.h"
 #include "../include/px_program.h"

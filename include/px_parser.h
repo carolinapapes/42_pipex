@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
+#ifndef PX_PARSER_H
 
-# define PIPEX_H
+# define PX_PARSER_H
 
 void		px_validate_input(int argc, char **argv);
 

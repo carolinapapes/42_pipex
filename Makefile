@@ -3,7 +3,6 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -I./include
 SRC_DIR = ./src
 SRC = main.c \
-parser.c \
 px_err.c \
 px_exit.c \
 px_fd.c \
@@ -11,6 +10,7 @@ px_cmd__fd.c \
 px_cmd__path.c \
 px_free.c \
 px_cmd.c \
+px_parser.c \
 px_process__exec.c \
 px_process__fd_open.c \
 px_process__fd_close.c \

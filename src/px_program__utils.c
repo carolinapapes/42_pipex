@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "../include/pipex.h"
 #include "../include/px_fd.h"
 #include "../include/px_types.h"
 #include "../include/px_program.h"

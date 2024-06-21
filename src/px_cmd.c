@@ -16,7 +16,6 @@
 #include <string.h>
 #include <fcntl.h>
 #include "../include/px_cmd.h"
-#include "../include/pipex.h"
 #include "../include/px_types.h"
 #include "../include/px_process.h"
 #include "../include/px_exit.h"

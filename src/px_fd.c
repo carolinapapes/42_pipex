@@ -12,7 +12,6 @@
 
 #include <unistd.h>
 #include "../include/px_types.h"
-#include "../include/pipex.h"
 #include "../include/px_exit.h"
 #include <stdio.h>
 

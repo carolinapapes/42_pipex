@@ -14,7 +14,6 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include "../libs/libft/libft.h"
-#include "../include/pipex.h"
 #include "../include/px_exit.h"
 #include "../include/libft_exp.h"
 

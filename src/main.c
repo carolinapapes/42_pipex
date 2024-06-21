@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "../include/px_parser.h"
 #include "../include/px_types.h"
 #include "../include/px_program.h"
 
