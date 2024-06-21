@@ -20,7 +20,7 @@
 #include "../include/px_types.h"
 #include "../include/px_program.h"
 
-void	cmd__free(t_cmd *cmd)
+void	px_cmd__free(t_cmd *cmd)
 {
 	if (!cmd)
 		return ;

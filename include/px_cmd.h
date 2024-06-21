@@ -19,6 +19,6 @@
 void	px_cmd__exec(t_cmd *cmd);
 void	px_cmd__fd(t_cmd *cmd, int code);
 void	cmd__path(t_cmd *cmd);
-void	cmd__free(t_cmd *cmd);
+void	px_cmd__free(t_cmd *cmd);
 
 #endif

@@ -64,6 +64,36 @@ static char	*get_error(char *msg)
 	return (error_message);
 }
 
+static char	*get_error__generic(const char *msg)
+{
+	char	*program_name;
+	char	*error_message;
+	char	*tmp;
+
+	program_name = get_program();
+	if (!msg)
+		return (program_name);
+	tmp = ft_strjoin(program_name, ": ");
+	if (!tmp)
+		return (program_name);
+	error_message = ft_strjoin(tmp, msg);
+	free(tmp);
+	if (!error_message)
+		return (program_name);
+	free(program_name);
+	return (error_message);
+}
+
+void	px_perror__generic(const char *msg)
+{
+	char	*error_message;
+
+	error_message = get_error__generic(msg);
+	perror(error_message);
+	free(error_message);
+	return ;
+}
+
 void	px_perror(char *msg)
 {
 	char	*error_message;
