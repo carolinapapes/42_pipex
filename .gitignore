@@ -1,0 +1,15 @@
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.obj
+
+# Libraries
+*.a
+
+# Executables
+*.out
+
+# MAC OS
+.DS_Store
