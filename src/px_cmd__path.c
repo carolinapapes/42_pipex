@@ -10,14 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libs/libft/libft.h"
 #include <errno.h>
-#include <stdio.h>
-#include <string.h>
 #include <fcntl.h>
+#include "../libs/libft/libft.h"
 #include "../include/libft_exp.h"
 #include "../include/px_types.h"
-#include "../include/px_process.h"
 #include "../include/px_exit.h"
 
 static void	path__concat(char *partial_path, t_cmd *cmd)
@@ -26,11 +23,11 @@ static void	path__concat(char *partial_path, t_cmd *cmd)
 
 	tmp = ft_strjoin(partial_path, "/");
 	if (!tmp)
-		px_exit__cmd(who(__func__), cmd);
+		px_exit__generic(who(__func__), cmd, FREE_CMD, PX_EXIT_FAILURE);
 	cmd->path = ft_strjoin(tmp, cmd->arr[0]);
 	free(tmp);
 	if (!cmd->path)
-		px_exit__cmd(who(__func__), cmd);
+		px_exit__generic(who(__func__), cmd, FREE_CMD, PX_EXIT_FAILURE);
 }
 
 static void	paths__get(t_cmd *cmd)
@@ -48,7 +45,7 @@ static void	paths__get(t_cmd *cmd)
 	}
 	if (paths__arr[i])
 		return ;
-	px_exit__127(cmd->arr[0], cmd);
+	px_exit__generic(cmd->arr[0], cmd, FREE_CMD, PX_EXIT_127);
 }
 
 static void	get_possible_paths(t_cmd *cmd)
@@ -57,16 +54,19 @@ static void	get_possible_paths(t_cmd *cmd)
 
 	paths__str = ft_str__find(cmd->env, "PATH=");
 	if (!paths__str || !*paths__str)
-		px_exit__127(cmd->arr[0], cmd);
+	{
+		errno = ENOENT;
+		px_exit__generic(cmd->arr[0], cmd, FREE_CMD, PX_EXIT_127__ENOENT);
+	}
 	cmd->possible_paths = ft_split(paths__str, ':');
 	if (!cmd->possible_paths)
-		px_exit__cmd(who(__func__), cmd);
+		px_exit__generic(who(__func__), cmd, FREE_CMD, PX_EXIT_FAILURE);
 }
 
 void	cmd__path(t_cmd *cmd)
 {
 	cmd->path = NULL;
-	if (is_path(cmd->arr[0], &cmd->path))
+	if (is_path(cmd))
 		return ;
 	get_possible_paths(cmd);
 	paths__get(cmd);

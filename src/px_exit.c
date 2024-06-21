@@ -10,30 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <sys/wait.h>
-#include "../include/px_exit.h"
-#include "../include/px_process.h"
-#include "../include/px_types.h"
-#include "../include/px_program.h"
-#include "../include/px_cmd.h"
-#include <stdio.h>
 #include <errno.h>
-
-void	px_exit(char *msg, t_program *program)
-{
-	int	err;
-
-	err = errno;
-	px_perror(msg);
-	px_free(program, NULL);
-	exit(err);
-}
-
-# define FREE_PROGRAM 1
-# define FREE_CMD 2
-# define FREE_PROCESS 3
+#include <stdlib.h>
+#include "../include/px_cmd.h"
+#include "../include/px_exit.h"
+#include "../include/px_types.h"
 
 void	px_free_generic(void *mem_to_free, int type)
 {
@@ -45,36 +26,38 @@ void	px_free_generic(void *mem_to_free, int type)
 		px_process__free((t_process *)mem_to_free);
 }
 
-void	px_exit__generic(const char *msg, void *mem_to_free, int type)
+void	px_perror__generic(const char *msg, int exit_code)
+{
+	if (exit_code == PX_EXIT_SUCESS)
+		return ;
+	if (exit_code == PX_EXIT_127)
+		px_perror__127((char *)msg);
+	else
+		px_perror((char *)msg);
+}
+
+void	px_exit__status(int exit_code, int err)
+{
+	if (exit_code == PX_EXIT_SUCESS)
+		exit(0);
+	else if (exit_code == PX_EXIT)
+		exit(1);
+	else if (exit_code == PX_EXIT_126)
+		exit(126);
+	else if (exit_code == PX_EXIT_127 \
+		|| exit_code == PX_EXIT_127__ENOENT)
+		exit(127);
+	else
+		exit(err);
+}
+
+void	px_exit__generic(const char *msg,
+			void *mem, int type, int exit_code)
 {
 	int	err;
 
 	err = errno;
-	px_perror(msg);
-	px_free_generic(mem_to_free, type);
-	exit(err);
-}
-
-void	px_exit__cmd(const char *msg, t_cmd *cmd)
-{
-	int	err;
-
-	err = errno;
-	px_perror((char *)msg);
-	px_cmd__free(cmd);
-	exit(err);
-}
-
-void	px_exit__127(char *msg, t_cmd *cmd)
-{
-	px_perror__127(msg);
-	px_cmd__free(cmd);
-	exit(127);
-}
-
-void	px_exit__126(char *msg, t_cmd *cmd)
-{
-	px_perror(msg);
-	px_cmd__free(cmd);
-	exit(126);
+	px_perror__generic(msg, exit_code);
+	px_free_generic(mem, type);
+	px_exit__status(exit_code, err);
 }

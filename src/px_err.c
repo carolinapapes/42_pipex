@@ -10,10 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unistd.h"
-#include "../libs/libft/libft.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include "../libs/libft/libft.h"
 #include "../include/px_types.h"
 
 static char	*get_program(void)
@@ -30,7 +28,7 @@ static char	*error__127(char *command)
 	char	*error_message;
 	char	*tmp;
 
-	base_message = ft_strdup("command not found\n");
+	base_message = ft_strdup("Command not found\n");
 	if (!command)
 		return (base_message);
 	tmp = ft_strjoin(command, ": ");
@@ -64,41 +62,11 @@ static char	*get_error(char *msg)
 	return (error_message);
 }
 
-static char	*get_error__generic(const char *msg)
-{
-	char	*program_name;
-	char	*error_message;
-	char	*tmp;
-
-	program_name = get_program();
-	if (!msg)
-		return (program_name);
-	tmp = ft_strjoin(program_name, ": ");
-	if (!tmp)
-		return (program_name);
-	error_message = ft_strjoin(tmp, msg);
-	free(tmp);
-	if (!error_message)
-		return (program_name);
-	free(program_name);
-	return (error_message);
-}
-
-void	px_perror__generic(const char *msg)
+void	px_perror(const char *msg)
 {
 	char	*error_message;
 
-	error_message = get_error__generic(msg);
-	perror(error_message);
-	free(error_message);
-	return ;
-}
-
-void	px_perror(char *msg)
-{
-	char	*error_message;
-
-	error_message = get_error(msg);
+	error_message = get_error((char *)msg);
 	perror(error_message);
 	free(error_message);
 	return ;

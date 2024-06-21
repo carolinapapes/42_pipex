@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "../include/px_fd.h"
 #include "../include/px_types.h"
-#include "../include/px_process.h"
 #include "../include/px_program.h"
 
 void	px_process__fd_close(t_program *program)
 {
-	px_close__full(content(program)->input, program, NULL);
+	px_close__program_full(content(program)->input, program, NULL);
 	if (is_lastcmdv(program))
-		px_close__full(content(program)->input, program, NULL);
+		px_close__program_full(content(program)->output, program, NULL);
 }

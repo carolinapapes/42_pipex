@@ -10,16 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "../include/px_types.h"
 #include "../include/px_exit.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 static void	allocate(t_program *program, t_process **process)
 {
 	*process = (t_process *)malloc(sizeof(t_process));
 	if (!(*process))
-		px_exit("process allocation", program);
+		px_exit__generic(__func__, program, FREE_PROGRAM, PX_EXIT_FAILURE);
 }
 
 static void	initialize(t_process *process)
@@ -38,7 +37,7 @@ static void	lstadd(t_program *program, t_process **process)
 
 	item = ft_lstnew((void *)(*process));
 	if (!item)
-		px_exit("list item allocation", program);
+		px_exit__generic(__func__, program, FREE_PROGRAM, PX_EXIT_FAILURE);
 	ft_lstadd_front(&program->list, item);
 }
 

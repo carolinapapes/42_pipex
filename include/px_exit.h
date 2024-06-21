@@ -16,15 +16,25 @@
 
 # include "px_types.h"
 
-void	px_exit(char *msg, t_program *program);
-void	px_exit__cmd(const char *msg, t_cmd *cmd);
-void	px_exit__127(char *msg, t_cmd *cmd);
-void	px_exit__126(char *msg, t_cmd *cmd);
+# define FREE_PROGRAM 1
+# define FREE_CMD 2
+# define FREE_PROCESS 3
+# define FREE_NONE 0
+
+# define PX_EXIT_FAILURE -1
+# define PX_EXIT_SUCESS 0
+# define PX_EXIT 1
+# define PX_EXIT_127 3
+# define PX_EXIT_126 4
+# define PX_EXIT_127__ENOENT 5
+
 void	px_perror(const char *msg);
 void	px_perror__127(char *msg);
 void	px_free(t_program *program, t_process *process);
 void	px_program__free(t_program *program);
 void	px_process__free(t_process *process);
-void	px_perror__generic(const char *msg);
+void	px_perror__generic(const char *msg, int exit_code);
+void	px_exit__generic(const char *msg,
+			void *mem_to_free, int type, int exit_code);
 
 #endif

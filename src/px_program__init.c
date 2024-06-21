@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include "../include/px_exit.h"
 #include "../include/px_types.h"
@@ -20,7 +19,7 @@ static void	cmds_allocate(t_program *program, int cmdc)
 	program->cmdv = (char **)malloc(sizeof(char *) * cmdc);
 	if (program->cmdv)
 		return ;
-	px_exit("cmds_allocate", NULL);
+	px_exit__generic(__func__, NULL, 0, PX_EXIT_FAILURE);
 }
 
 static void	cmds_assing(t_program *program, char **argv, int argc)

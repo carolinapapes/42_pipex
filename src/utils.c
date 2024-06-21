@@ -14,8 +14,8 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include "../libs/libft/libft.h"
-#include "../include/px_exit.h"
 #include "../include/libft_exp.h"
+#include "../include/px_exit.h"
 
 char const	*ft_str__find(char **env, char *key)
 {
@@ -42,28 +42,28 @@ void	ft_split__free(char **strs)
 	return ;
 }
 
-void	is_dir(char *name)
+void	is_dir(t_cmd *cmd)
 {
 	int			fd;
 
-	fd = open(name, O_WRONLY);
+	fd = open(cmd->arr[0], O_WRONLY);
 	if (fd == -1 && errno == EISDIR)
-		px_exit(name, NULL);
+		px_exit__generic(cmd->arr[0], cmd, FREE_CMD, PX_EXIT_126);
 	else if (fd != -1)
 		close(fd);
 	return ;
 }
 
-char	*is_path(char *name, char **path)
+char	*is_path(t_cmd *cmd)
 {
-	if (ft_strchr(name, '/'))
+	if (ft_strchr(cmd->arr[0], '/'))
 	{
-		is_dir(name);
-		*path = ft_strdup(name);
-		if (!*path)
-			px_exit("paths__get ft_strdup failed", NULL);
+		is_dir(cmd);
+		cmd->path = ft_strdup(cmd->arr[0]);
+		if (!cmd->path)
+			px_exit__generic(__func__, cmd, FREE_CMD, PX_EXIT_FAILURE);
 	}
-	return (*path);
+	return (cmd->path);
 }
 
 void	ft_free(void *content)

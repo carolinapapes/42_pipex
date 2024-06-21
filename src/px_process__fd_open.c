@@ -11,13 +11,10 @@
 /* ************************************************************************** */
 
 #include <fcntl.h>
-#include "../include/px_fd.h"
+#include <unistd.h>
+#include <stdlib.h>
 #include "../include/px_types.h"
 #include "../include/px_exit.h"
-#include "../include/px_process.h"
-#include "../include/px_program.h"
-#include <errno.h>
-#include <stdio.h>
 
 static void	input_set(t_list *list, t_process *current)
 {
@@ -39,7 +36,7 @@ static void	input_set__first(t_process *current, char *file)
 static void	output_set(t_process *current, t_program *program)
 {
 	if (pipe(current->output) < 0)
-		px_exit("pipe", program);
+		px_exit__generic(__func__, program, FREE_PROGRAM, PX_EXIT_FAILURE);
 }
 
 static void	output_set__last(t_process *current, char *file, t_program *program)

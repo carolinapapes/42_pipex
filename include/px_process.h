@@ -13,7 +13,6 @@
 #ifndef PX_PROCESS_H
 
 # define PX_PROCESS_H
-# include "../libs/libft/libft.h"
 # include "px_types.h"
 
 void	px_process__init(t_program *program);

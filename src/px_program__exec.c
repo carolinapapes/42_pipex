@@ -11,11 +11,9 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "../include/px_fd.h"
 #include "../include/px_types.h"
 #include "../include/px_process.h"
 #include "../include/px_program.h"
-#include <stdio.h>
 
 /**
  * @brief Launch all process and wait for them to finish

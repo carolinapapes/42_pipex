@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/wait.h>
 #include <unistd.h>
 #include "../include/px_exit.h"
 #include "../include/px_types.h"
@@ -19,5 +18,5 @@ void	px_process__fork(t_process *process, t_program *program)
 {
 	process->pid = fork();
 	if (process->pid == -1)
-		px_exit("fork", program);
+		px_exit__generic(__func__, program, FREE_PROGRAM, PX_EXIT_FAILURE);
 }

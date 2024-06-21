@@ -10,15 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <stdlib.h>
-#include <sys/wait.h>
 #include "../include/libft_exp.h"
 #include "../libs/libft/libft_bonus.h"
-#include "../include/px_exit.h"
-#include "../include/px_process.h"
 #include "../include/px_types.h"
-#include "../include/px_program.h"
 
 void	px_cmd__free(t_cmd *cmd)
 {

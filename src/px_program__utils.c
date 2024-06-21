@@ -11,10 +11,9 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "../include/px_fd.h"
+#include <stdio.h>
 #include "../include/px_types.h"
 #include "../include/px_program.h"
-#include <stdio.h>
 
 t_process	*content(t_program *program)
 {

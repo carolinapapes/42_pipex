@@ -11,10 +11,9 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "../include/px_exit.h"
+#include "../include/px_cmd.h"
 #include "../include/px_types.h"
 #include "../include/px_program.h"
-#include "../include/px_cmd.h"
 
 static void	initialize(t_cmd *cmd, t_program *program, char *cmdname)
 {

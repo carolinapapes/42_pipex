@@ -13,11 +13,11 @@
 #ifndef LIBFT_EXP_H
 
 # define LIBFT_EXP_H
+# include "../include/px_types.h"
 
 char const	*ft_str__find(char **env, char *key);
 void		ft_split__free(char **strs);
-void		is_dir(char *name);
-char		*is_path(char *name, char **path);
+char		*is_path(t_cmd *cmd);
 char		*who(const char *str);
 void		ft_free(void *content);
 

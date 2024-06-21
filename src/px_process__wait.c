@@ -10,11 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/px_types.h"
-#include "../include/px_process.h"
-#include "../include/px_exit.h"
-#include "../include/px_program.h"
+#include <stdlib.h>
 #include <sys/wait.h>
+#include "../include/px_types.h"
+#include "../include/px_exit.h"
 
 static void	wait__check(t_process *process)
 {
